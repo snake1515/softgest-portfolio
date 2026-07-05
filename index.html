@@ -4,6 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SoftGest — Soluciones digitales para tu empresa</title>
+  <meta name="description" content="Desarrollo de software a medida y campañas en Facebook e Instagram para empresas colombianas: control de inventario, facturación electrónica DIAN, CRM, nómina y más. Entrega rápida y sin licencias costosas." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%231a5fad%22/><text x=%2250%22 y=%2266%22 font-size=%2258%22 font-family=%22Arial%2C sans-serif%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>S</text></svg>" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SoftGest" />
+  <meta property="og:title" content="SoftGest — Soluciones digitales para tu empresa" />
+  <meta property="og:description" content="Desarrollo de software a medida y campañas en Facebook e Instagram para empresas colombianas. Entrega rápida, económica y lista para usar." />
+  <meta property="og:locale" content="es_CO" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="SoftGest — Soluciones digitales para tu empresa" />
+  <meta name="twitter:description" content="Desarrollo de software a medida y campañas en Facebook e Instagram para empresas colombianas." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -60,6 +73,7 @@
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { text-decoration: none; font-size: 14px; color: var(--gray-600); font-weight: 400; transition: color 0.2s; }
     .nav-links a:hover { color: var(--blue-600); }
+    .nav-links a.active { color: var(--blue-600); font-weight: 500; }
     .nav-cta {
       background: var(--blue-600); color: var(--white);
       border: none; padding: 8px 20px;
@@ -387,9 +401,13 @@
     /* FAQ */
     .faq-section { background: var(--white); }
     .faq-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 3rem; }
-    .faq-item { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.5rem; }
-    .faq-q { font-size: 15px; font-weight: 500; color: var(--gray-800); margin-bottom: 10px; }
-    .faq-a { font-size: 14px; color: var(--gray-600); line-height: 1.65; }
+    .faq-item { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.5rem; cursor: pointer; }
+    .faq-q { font-size: 15px; font-weight: 500; color: var(--gray-800); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .faq-q::after { content: '+'; font-size: 20px; font-weight: 300; color: var(--blue-600); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-item.open .faq-q { margin-bottom: 10px; }
+    .faq-a { font-size: 14px; color: var(--gray-600); line-height: 1.65; display: none; }
+    .faq-item.open .faq-a { display: block; }
 
     /* COTIZACIÓN */
     .cotizacion-section { background: var(--gray-50); }
@@ -541,8 +559,8 @@
       <div class="stat-label">Soluciones en producción real</div>
     </div>
     <div>
-      <span class="stat-num">0</span>
-      <div class="stat-label">Costos de infraestructura para el cliente</div>
+      <span class="stat-num">&lt;24h</span>
+      <div class="stat-label">Tiempo de respuesta a cada solicitud</div>
     </div>
   </div>
 </div>
@@ -1006,6 +1024,7 @@
         </div>
       </div>
     </div>
+    <p style="text-align:center; font-size:13px; color:var(--gray-400); margin-top:1.5rem;">* Nombres de empresas omitidos por acuerdo de confidencialidad con nuestros clientes.</p>
   </div>
 </div>
 
@@ -1015,27 +1034,27 @@
     <div class="section-label">Preguntas frecuentes</div>
     <h2 class="section-title">Todo lo que necesitas <em>saber</em></h2>
     <div class="faq-grid">
-      <div class="faq-item">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">¿Cuánto tiempo tarda en estar lista mi aplicación?</div>
         <div class="faq-a">Depende de la complejidad, pero una primera versión funcional generalmente está lista en 2 dias a 3 semanas. Proyectos más completos con múltiples módulos pueden tomar entre 4 y 8 semanas.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">¿Cuánto cuesta desarrollar un sistema?</div>
         <div class="faq-a">El costo varía según el alcance. Manejamos presupuestos desde proyectos pequeños hasta soluciones completas. Contáctanos para una cotización sin compromiso adaptada a tu necesidad.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">¿El sistema funciona desde el celular?</div>
         <div class="faq-a">Sí. Todas nuestras aplicaciones son responsivas, es decir, se adaptan automáticamente a celulares, tabletas y computadores sin necesidad de instalar nada.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">¿Qué pasa si necesito cambios después de la entrega?</div>
         <div class="faq-a">Ofrecemos soporte y mantenimiento post-entrega. Los ajustes menores los resolvemos rápidamente; para nuevas funcionalidades acordamos un alcance adicional.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">¿Mis datos están seguros en la nube?</div>
         <div class="faq-a">Usamos Supabase (infraestructura PostgreSQL sobre AWS) con acceso controlado por roles y autenticación segura. Tus datos son solo tuyos.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">¿Puedo tener varios usuarios con diferentes permisos?</div>
         <div class="faq-a">Sí. Todos nuestros sistemas incluyen gestión de usuarios con roles y permisos configurables. Cada persona ve y hace solo lo que le corresponde.</div>
       </div>
@@ -1060,6 +1079,15 @@
             <label for="whatsapp">WhatsApp</label>
             <input type="tel" id="whatsapp" placeholder="3XXXXXXXXX" required />
           </div>
+        </div>
+        <div class="form-group">
+          <label for="tipoServicio">¿Qué te interesa?</label>
+          <select id="tipoServicio">
+            <option value="">Selecciona...</option>
+            <option>Desarrollo de software a medida</option>
+            <option>Campañas en Facebook e Instagram</option>
+            <option>Ambos servicios</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="sector">Sector de tu empresa</label>
@@ -1125,7 +1153,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Soft<span>Gest</span></div>
-  <p class="footer-text">© 2025 SoftGest · Desarrollo de software empresarial · Colombia</p>
+  <p class="footer-text">© 2026 SoftGest · Desarrollo de software y marketing digital · Colombia</p>
   <ul class="footer-links">
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#proyectos">Proyectos</a></li>
@@ -1141,19 +1169,40 @@ function enviarCotizacion(e) {
   e.preventDefault();
   const nombre   = document.getElementById('nombre').value.trim();
   const whatsapp = document.getElementById('whatsapp').value.trim();
+  const tipoServicio = document.getElementById('tipoServicio').value;
   const sector   = document.getElementById('sector').value;
   const necesidad= document.getElementById('necesidad').value.trim();
   const usuarios = document.getElementById('usuarios').value;
   const urgencia = document.getElementById('urgencia').value;
 
-  const msg = `Hola, quiero una cotización:\n\n👤 *Nombre/Empresa:* ${nombre}\n🏢 *Sector:* ${sector || 'No especificado'}\n📋 *Necesidad:* ${necesidad}\n👥 *Usuarios:* ${usuarios || 'No especificado'}\n⏱️ *Urgencia:* ${urgencia || 'No especificado'}\n📱 *Mi WhatsApp:* ${whatsapp}`;
+  const msg = `Hola, quiero una cotización:\n\n👤 *Nombre/Empresa:* ${nombre}\n🎯 *Servicio de interés:* ${tipoServicio || 'No especificado'}\n🏢 *Sector:* ${sector || 'No especificado'}\n📋 *Necesidad:* ${necesidad}\n👥 *Usuarios:* ${usuarios || 'No especificado'}\n⏱️ *Urgencia:* ${urgencia || 'No especificado'}\n📱 *Mi WhatsApp:* ${whatsapp}`;
 
   window.open(`https://wa.me/573027132640?text=${encodeURIComponent(msg)}`, '_blank');
 }
+
+// Scrollspy: resalta el link del nav correspondiente a la sección visible
+const navLinks = document.querySelectorAll('.nav-links a');
+const spySections = ['porque', 'servicios', 'proyectos', 'proceso', 'faq']
+  .map(id => document.getElementById(id))
+  .filter(Boolean);
+
+const spyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+      });
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+
+spySections.forEach(section => spyObserver.observe(section));
 </script>
 
 </body>
 </html>
+
+
 
 
 
