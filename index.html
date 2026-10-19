@@ -480,6 +480,51 @@
       .contact-section { padding: 3.5rem 1.25rem; }
       footer { flex-direction: column; text-align: center; }
     }
+
+    /* GALERÍA DE CAPTURAS */
+    .gallery-section { background: var(--blue-900); background-image: radial-gradient(circle at 15% 0%, rgba(58,130,212,.35), transparent 45%), radial-gradient(circle at 90% 100%, rgba(26,95,173,.45), transparent 50%); padding: 5rem 2.5rem; color: var(--white); }
+    .gallery-inner { max-width: 1100px; margin: 0 auto; }
+    .gallery-section .section-label { color: var(--blue-200); font-family: 'JetBrains Mono', monospace; }
+    .gallery-section .section-title { color: var(--white); }
+    .gallery-section .section-title em { color: var(--blue-200); }
+    .gallery-section .section-sub { color: var(--blue-100); }
+    .gallery-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 2rem 0 1.5rem; }
+    .gallery-filter { font: 500 14px 'DM Sans', sans-serif; color: var(--blue-100); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.18); padding: 8px 16px; border-radius: 999px; cursor: pointer; transition: all .2s; }
+    .gallery-filter:hover { background: rgba(255,255,255,.12); color: var(--white); }
+    .gallery-filter.active { background: var(--white); color: var(--blue-800); border-color: var(--white); }
+    .mosaic { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 92px; grid-auto-flow: dense; gap: 14px; }
+    .tile { position: relative; overflow: hidden; border-radius: var(--radius-lg); background: #0b1830; border: 1px solid rgba(255,255,255,.12); cursor: zoom-in; box-shadow: 0 10px 30px rgba(0,0,0,.25); transition: transform .3s, box-shadow .3s, opacity .3s; }
+    .tile img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .6s ease; }
+    .tile:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.4); }
+    .tile:hover img { transform: scale(1.04); }
+    .tile.big { grid-column: span 4; grid-row: span 4; }
+    .tile.wide { grid-column: span 3; grid-row: span 3; }
+    .tile.tall { grid-column: span 2; grid-row: span 4; }
+    .tile figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 56px 14px 12px; background: linear-gradient(rgba(4,16,38,0), rgba(4,16,38,.88) 45%, rgba(4,16,38,.97)); font-size: 13px; line-height: 1.4; color: var(--white); }
+    .tile .tile-tag { display: inline-block; font: 700 11px 'JetBrains Mono', monospace; letter-spacing: .04em; color: var(--blue-800); background: var(--blue-200); padding: 2px 8px; border-radius: 6px; margin-bottom: 6px; }
+    .tile.hidden { display: none; }
+    .mosaic:not(.expanded) .tile.extra { display: none; }
+    .gallery-more-wrap { text-align: center; margin-top: 1.75rem; }
+    .gallery-more { font: 500 15px 'DM Sans', sans-serif; color: var(--blue-800); background: var(--white); border: none; padding: 12px 26px; border-radius: var(--radius-md); cursor: pointer; transition: transform .15s; }
+    .gallery-more:hover { transform: translateY(-2px); }
+    .gallery-note { margin-top: 1.25rem; font-size: 13px; color: var(--blue-200); }
+    .lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(3,10,24,.94); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 2rem 4rem; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-md); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+    .lightbox p { color: var(--blue-100); margin-top: 1rem; font-size: 15px; text-align: center; }
+    .lb-btn { position: absolute; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); color: #fff; width: 48px; height: 48px; border-radius: 50%; font-size: 22px; cursor: pointer; }
+    .lb-btn:hover { background: rgba(255,255,255,.2); }
+    .lb-close { top: 20px; right: 20px; } .lb-prev { left: 16px; top: 50%; } .lb-next { right: 16px; top: 50%; }
+    @media (max-width: 768px) {
+      .gallery-section { padding: 3.5rem 1.25rem; }
+      .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 90px; gap: 10px; }
+      .tile.big, .tile.wide { grid-column: span 2; grid-row: span 2; }
+      .tile.tall { grid-column: span 1; grid-row: span 4; }
+      .tile figcaption { font-size: 12px; padding: 30px 10px 10px; }
+      .lightbox { padding: 1rem; }
+      .lb-prev, .lb-next { top: auto; bottom: 20px; }
+      .lb-prev { left: calc(50% - 60px); } .lb-next { right: calc(50% - 60px); }
+    }
   </style>
 </head>
 <body>
@@ -491,6 +536,7 @@
     <li><a href="#porque">¿Por qué nosotros?</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#galeria">Galería</a></li>
     <li><a href="#proceso">Proceso</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
@@ -932,6 +978,78 @@
   </div>
 </div>
 
+<!-- GALERÍA DE CAPTURAS -->
+<div id="galeria" class="gallery-section">
+  <div class="gallery-inner">
+    <div class="section-label">&gt; así se ven por dentro</div>
+    <h2 class="section-title">Nuestras apps <em>funcionando</em></h2>
+    <p class="section-sub">Capturas reales de las aplicaciones: inventarios, facturación DIAN, apps a la medida y páginas web. Haz clic en cualquier imagen para verla en grande.</p>
+    <div class="gallery-filters" role="tablist">
+      <button class="gallery-filter active" data-filter="all">Todas</button>
+      <button class="gallery-filter" data-filter="stocka">Stocka</button>
+      <button class="gallery-filter" data-filter="electra">Electra</button>
+      <button class="gallery-filter" data-filter="medida">Apps a la medida</button>
+      <button class="gallery-filter" data-filter="web">Páginas web</button>
+    </div>
+    <div class="mosaic">
+      <figure class="tile big" data-cat="stocka">
+        <img src="assets/capturas/stocka-busqueda.webp" alt="Stocka: Búsqueda instantánea con existencias en bodega y almacén" loading="lazy" />
+        <figcaption><span class="tile-tag">Stocka</span><br />Búsqueda instantánea con existencias en bodega y almacén</figcaption>
+      </figure>
+      <figure class="tile tall" data-cat="medida">
+        <img src="assets/capturas/medida-venta.webp" alt="A la medida: Punto de venta rápido: toca el producto y se suma a la venta" loading="lazy" />
+        <figcaption><span class="tile-tag">A la medida</span><br />Punto de venta rápido: toca el producto y se suma a la venta</figcaption>
+      </figure>
+      <figure class="tile wide" data-cat="electra">
+        <img src="assets/capturas/electra-facturas.webp" alt="Electra: Facturas electrónicas sincronizadas desde Gmail" loading="lazy" />
+        <figcaption><span class="tile-tag">Electra</span><br />Facturas electrónicas sincronizadas desde Gmail</figcaption>
+      </figure>
+      <figure class="tile wide" data-cat="stocka">
+        <img src="assets/capturas/stocka-movimientos.webp" alt="Stocka: Ingresos, egresos y traslados con consecutivo automático" loading="lazy" />
+        <figcaption><span class="tile-tag">Stocka</span><br />Ingresos, egresos y traslados con consecutivo automático</figcaption>
+      </figure>
+      <figure class="tile tall extra" data-cat="web">
+        <img src="assets/capturas/web-inicio.webp" alt="Páginas web: Sitio web para empresa de plomería en Antioquia" loading="lazy" />
+        <figcaption><span class="tile-tag">Páginas web</span><br />Sitio web para empresa de plomería en Antioquia</figcaption>
+      </figure>
+      <figure class="tile tall extra" data-cat="medida">
+        <img src="assets/capturas/medida-resumen.webp" alt="A la medida: Resumen de ventas, costos y ganancia neta del negocio" loading="lazy" />
+        <figcaption><span class="tile-tag">A la medida</span><br />Resumen de ventas, costos y ganancia neta del negocio</figcaption>
+      </figure>
+      <figure class="tile tall extra" data-cat="medida">
+        <img src="assets/capturas/medida-reportes.webp" alt="A la medida: Reportes por día, semana o mes con descarga a Excel" loading="lazy" />
+        <figcaption><span class="tile-tag">A la medida</span><br />Reportes por día, semana o mes con descarga a Excel</figcaption>
+      </figure>
+      <figure class="tile wide extra" data-cat="electra">
+        <img src="assets/capturas/electra-detalle.webp" alt="Electra: Detalle de cada factura: proveedor, CUFE y totales" loading="lazy" />
+        <figcaption><span class="tile-tag">Electra</span><br />Detalle de cada factura: proveedor, CUFE y totales</figcaption>
+      </figure>
+      <figure class="tile wide extra" data-cat="electra">
+        <img src="assets/capturas/electra-cruce.webp" alt="Electra: Cruce automático contra el reporte de la DIAN" loading="lazy" />
+        <figcaption><span class="tile-tag">Electra</span><br />Cruce automático contra el reporte de la DIAN</figcaption>
+      </figure>
+      <figure class="tile tall extra" data-cat="web">
+        <img src="assets/capturas/web-servicios.webp" alt="Páginas web: Servicios con botones directos a WhatsApp" loading="lazy" />
+        <figcaption><span class="tile-tag">Páginas web</span><br />Servicios con botones directos a WhatsApp</figcaption>
+      </figure>
+      <figure class="tile big extra" data-cat="stocka">
+        <img src="assets/capturas/stocka-detalle.webp" alt="Stocka: Detalle de cada movimiento: quién, cuándo y qué productos" loading="lazy" />
+        <figcaption><span class="tile-tag">Stocka</span><br />Detalle de cada movimiento: quién, cuándo y qué productos</figcaption>
+      </figure>
+    </div>
+    <div class="gallery-more-wrap"><button class="gallery-more" id="gallery-more">Ver más capturas ↓</button></div>
+    <p class="gallery-note">* Capturas tomadas con datos de demostración para proteger la información de nuestros clientes.</p>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-btn lb-close" aria-label="Cerrar">&times;</button>
+  <button class="lb-btn lb-prev" aria-label="Anterior">&#8249;</button>
+  <img id="lb-img" alt="" />
+  <p id="lb-cap"></p>
+  <button class="lb-btn lb-next" aria-label="Siguiente">&#8250;</button>
+</div>
+
 <!-- PROCESO -->
 <div id="proceso">
   <div class="section">
@@ -1200,6 +1318,42 @@ const spyObserver = new IntersectionObserver((entries) => {
 spySections.forEach(section => spyObserver.observe(section));
 </script>
 
+<script>
+(function () {
+  const tiles = Array.from(document.querySelectorAll('.mosaic .tile'));
+  const mosaic = document.querySelector('.mosaic'), more = document.getElementById('gallery-more');
+  document.querySelectorAll('.gallery-filter').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    tiles.forEach(t => t.classList.toggle('hidden', f !== 'all' && t.dataset.cat !== f));
+    if (f !== 'all') { mosaic.classList.add('expanded'); more.style.display = 'none'; }
+  }));
+  more.addEventListener('click', () => {
+    const open = mosaic.classList.toggle('expanded');
+    more.textContent = open ? 'Ver menos ↑' : 'Ver más capturas ↓';
+    if (!open) document.getElementById('galeria').scrollIntoView({ behavior: 'smooth' });
+  });
+  const lb = document.getElementById('lightbox'), img = document.getElementById('lb-img'), cap = document.getElementById('lb-cap');
+  let idx = 0;
+  const visible = () => tiles.filter(t => t.offsetParent !== null);
+  function show(i) {
+    const v = visible(); idx = (i + v.length) % v.length;
+    const t = v[idx], im = t.querySelector('img');
+    img.src = im.src; img.alt = im.alt; cap.textContent = im.alt;
+  }
+  tiles.forEach(t => t.addEventListener('click', () => { show(visible().indexOf(t)); lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); }));
+  const close = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); };
+  lb.querySelector('.lb-close').onclick = close;
+  lb.querySelector('.lb-prev').onclick = e => { e.stopPropagation(); show(idx - 1); };
+  lb.querySelector('.lb-next').onclick = e => { e.stopPropagation(); show(idx + 1); };
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1);
+  });
+})();
+</script>
 </body>
 </html>
 
