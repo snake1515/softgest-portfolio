@@ -535,6 +535,8 @@
     .clientes-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; margin-top: 2.5rem; }
     .cliente-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.5rem; }
     .cliente-card p { font-size: 14px; color: var(--gray-600); line-height: 1.6; margin-top: 1rem; }
+    .cliente-card .testimonio-avatar { width: 56px; height: 56px; font-size: 15px; }
+    .cliente-logo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gray-200); background: #fff; flex-shrink: 0; }
     /* FUNDADOR */
     .founder-section { background: var(--white); }
     .founder-inner { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: center; padding-top: 4rem; padding-bottom: 4rem; }
@@ -1150,7 +1152,7 @@
     <div class="clientes-grid">
       <div class="cliente-card">
         <div class="testimonio-autor">
-          <div class="testimonio-avatar">VJ</div>
+          <img src="assets/clientes/vikingos-juanchis.webp" alt="Logo Vikingos Juanchis" class="cliente-logo" width="56" height="56" loading="lazy" />
           <div><strong>Vikingos Juanchis</strong><span>Fábrica de vikingos (bolis)</span></div>
         </div>
         <p>App de producción, costos y ventas: insumos, mano de obra, ganancias y productos más vendidos.</p>
@@ -1164,7 +1166,7 @@
       </div>
       <div class="cliente-card">
         <div class="testimonio-autor">
-          <div class="testimonio-avatar">PA</div>
+          <img src="assets/clientes/plomeria-antioquia.webp" alt="Logo Plomería Antioquia" class="cliente-logo" width="56" height="56" loading="lazy" />
           <div><strong>Plomería Antioquia</strong><span>Servicios de plomería</span></div>
         </div>
         <p>Sitio web profesional "Tu hogar en buenas manos" con contacto directo por WhatsApp.</p>
