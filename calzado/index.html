@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CalzadoControl · Entrando</title>
+  <meta name="description" content="Entrada a CalzadoControl, la app de SoftGest para fábricas de calzado.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/calzadocontrol-logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --cafe:#b5602c; --cafe-osc:#8a4b2a; --fondo:#2b1d16; --crema:#f6efe8; --texto:#f1e3d6; --suave:#c9b3a2; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: var(--texto);
+      background: radial-gradient(900px 500px at 15% 0%, #4a3022 0%, transparent 60%), var(--fondo);
+      display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+    .caja { width: 100%; max-width: 420px; text-align: center; }
+    .logo { width: 92px; height: 92px; border-radius: 22px; box-shadow: 0 10px 34px rgba(0,0,0,.45); }
+    h1 { font-size: 30px; margin: 18px 0 4px; color: #fff; letter-spacing: -.01em; }
+    .sub { color: var(--suave); margin: 0 0 30px; font-size: 15px; }
+    .barra { height: 8px; background: rgba(255,255,255,.12); border-radius: 99px; overflow: hidden; }
+    .barra i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #e09a62, var(--cafe));
+      border-radius: 99px; transition: width .6s ease; }
+    .estado { margin: 14px 0 0; font-size: 15px; font-weight: 500; color: #fff; min-height: 22px; }
+    .tip { margin: 26px auto 0; padding: 14px 16px; background: rgba(255,255,255,.06); border-radius: 12px;
+      font-size: 14px; line-height: 1.45; color: var(--texto); min-height: 70px; transition: opacity .4s; }
+    .tip b { color: #e09a62; display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+    .btn { display: none; margin: 22px auto 0; background: var(--cafe); color: #fff; text-decoration: none; font-weight: 700;
+      padding: 12px 22px; border-radius: 99px; font-size: 15px; }
+    .pie { margin-top: 34px; font-size: 13px; color: var(--suave); }
+    .pie a { color: var(--suave); }
+    @media (prefers-reduced-motion: reduce) { .barra i, .tip { transition: none; } }
+  </style>
+</head>
+<body>
+  <main class="caja">
+    <img class="logo" src="../assets/calzadocontrol-logo.jpg" alt="">
+    <h1>CalzadoControl</h1>
+    <p class="sub">Preparando tu app…</p>
+    <div class="barra" aria-hidden="true"><i id="barra"></i></div>
+    <p class="estado" id="estado" role="status">Conectando con el servidor</p>
+    <div class="tip" id="tip"></div>
+    <a class="btn" id="btn" href="#">Entrar a la app →</a>
+    <div class="pie">por <a href="../">SoftGest</a></div>
+  </main>
+  <script>
+    // Dirección de la app en Render. Si cambia el dominio, solo hay que cambiar esta línea.
+    const APP = 'https://calzadocontrol.onrender.com';
+    const DESTINO = APP + '/login';
+    const TIPS = [
+      'Ve cuánto te cuesta realmente cada par: materiales, mano de obra e indirectos.',
+      'El inventario se lleva talla por talla, y se actualiza solo al producir y vender.',
+      'El destajo de tus operarios se suma solo cada vez que registras producción.',
+      'Vende de contado o a crédito y manda el recibo por WhatsApp.',
+      'En Cartera ves quién te debe, cuánto y desde cuándo.',
+      '¿Ya llevas todo en Excel? Súbelo con la plantilla de importación.',
+    ];
+    const $ = id => document.getElementById(id);
+    let i = 0;
+    const tip = () => { $('tip').style.opacity = 0; setTimeout(() => {
+      $('tip').innerHTML = '<b>¿Sabías que?</b>' + TIPS[i++ % TIPS.length]; $('tip').style.opacity = 1; }, 300); };
+    tip(); const tTip = setInterval(tip, 6000);
+
+    const inicio = Date.now();
+    let avance = 4;
+    const tBarra = setInterval(() => { avance = Math.min(avance + (92 - avance) * 0.06, 92); $('barra').style.width = avance + '%'; }, 500);
+    const mensajes = [[0, 'Conectando con el servidor'], [6, 'Encendiendo la app'], [20, 'Ya casi está lista'],
+                      [45, 'Está tardando un poco más de lo normal'], [75, 'Seguimos intentando…']];
+    const tMsg = setInterval(() => { const s = (Date.now() - inicio) / 1000;
+      $('estado').textContent = mensajes.filter(m => s >= m[0]).pop()[1];
+      if (s > 25) { $('btn').style.display = 'inline-block'; } }, 1000);
+    $('btn').href = DESTINO;
+
+    async function listo() {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 10000);
+      try {
+        const r = await fetch(APP + '/salud?t=' + Date.now(), { cache: 'no-store', signal: ctl.signal });
+        const j = await r.json();
+        return j && j.ok === true;
+      } catch (e) { return false; } finally { clearTimeout(t); }
+    }
+    async function esperar() {
+      while ((Date.now() - inicio) < 150000) {
+        if (await listo()) {
+          clearInterval(tBarra); clearInterval(tMsg); clearInterval(tTip);
+          $('barra').style.width = '100%'; $('estado').textContent = '¡Lista! Entrando…';
+          setTimeout(() => location.replace(DESTINO), 500);
+          return;
+        }
+        await new Promise(r => setTimeout(r, 2500));
+      }
+      $('estado').textContent = 'No pudimos confirmar que la app esté lista. Intenta entrar.';
+      $('btn').style.display = 'inline-block';
+    }
+    esperar();
+  </script>
+</body>
+</html>
