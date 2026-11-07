@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SoftGest — Apps de gestión hechas para tu negocio</title>
+<meta name="description" content="Apps de inventario, ventas, facturación DIAN y más, hechas a la medida de tu negocio. Pago único desde $200.000 y 15 días de prueba gratis." />
+<link rel="icon" href="assets/softgest-icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --tinta: #0b2545;      /* texto principal: azul tinta, no negro */
+    --azul: #1a5fad;       /* azul SoftGest (del ícono) */
+    --azul-hondo: #0d3e78;
+    --cielo: #c2d9f6;      /* la chispa del ícono */
+    --papel: #f3f6fb;      /* fondo frío, como hoja de bodega */
+    --linea: #d5dfec;
+    --gris: #5a6b82;
+    --ok: #17845a;
+    --alerta: #b5530f;
+    --whatsapp: #1fa855;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --sans: "Schibsted Grotesk", system-ui, sans-serif;
+    --ancho: 1180px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); color: var(--tinta); background: var(--papel); font-size: 18px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 4px; }
+  .envoltura { max-width: var(--ancho); margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Barra superior ---------- */
+  .barra { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--mono); font-weight: 700; font-size: 21px; letter-spacing: -0.02em; color: var(--azul-hondo); }
+  .logo img { width: 34px; height: 34px; }
+  .logo-txt span { color: var(--azul); font-weight: 500; }
+  .menu { display: flex; gap: 30px; align-items: center; font-size: 16px; }
+  .menu a { text-decoration: none; color: var(--gris); font-weight: 500; }
+  .menu a:hover { color: var(--tinta); }
+  .menu a.btn-wa, .menu a.btn-wa:hover { color: #fff; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; font: 600 17px var(--sans); text-decoration: none; border-radius: 12px; padding: 15px 24px; border: 0; cursor: pointer; }
+  .btn-wa { background: var(--whatsapp); color: #fff; }
+  .btn-wa:hover { background: #178a45; }
+  .btn-wa svg { width: 20px; height: 20px; }
+  .btn-sm { padding: 10px 16px; font-size: 15px; border-radius: 10px; }
+
+  /* ---------- Hero: la app cambia según el negocio ---------- */
+  .hero { padding: 56px 0 0; }
+  .hero h1 { font-size: clamp(2.5rem, 6.2vw, 5.4rem); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; max-width: 14ch; }
+  .hero h1 { max-width: none; }
+  .linea2 { display: block; white-space: nowrap; }
+  /* la palabra editable lleva el cursor del ">_" del logo */
+  .negocio { color: var(--azul); border-bottom: 0.08em dashed var(--cielo); border-right: 0.07em solid var(--azul); padding-right: 0.04em; animation: parpadeo 1s steps(1) infinite; }
+  @keyframes parpadeo { 50% { border-right-color: transparent; } }
+  .hero-sub { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; margin-top: 30px; }
+  .hero-sub p { font-size: 20px; color: var(--gris); max-width: 46ch; }
+  .hero-sub p strong { color: var(--tinta); font-weight: 600; }
+  .hero-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hero-cta small { font-size: 15px; color: var(--gris); }
+
+  .selector { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .selector-titulo { font-size: 15px; color: var(--gris); margin-right: 6px; }
+  .chip { font: 500 15px var(--sans); color: var(--tinta); background: #fff; border: 1px solid var(--linea); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+  .chip:hover { border-color: var(--azul); }
+  .chip[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: #fff; }
+
+  .app { margin-top: 20px; background: #fff; border: 1px solid var(--linea); border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: 0 -1px 0 #fff inset, 0 30px 60px -30px rgba(13, 62, 120, 0.35); overflow: hidden; }
+  .app-cabeza { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-bottom: 1px solid var(--linea); }
+  .app-nombre { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 17px; }
+  .app-nombre i { width: 30px; height: 30px; border-radius: 8px; background: var(--azul); color: #fff; font-style: normal; display: grid; place-items: center; font-size: 15px; font-weight: 700; }
+  .app-tabs { display: flex; gap: 4px; font-size: 14px; }
+  .app-tabs span { padding: 6px 12px; border-radius: 8px; color: var(--gris); }
+  .app-tabs span:first-child { background: var(--papel); color: var(--tinta); font-weight: 600; }
+  .app-cuerpo { display: grid; grid-template-columns: 1fr 300px; }
+  .tabla { width: 100%; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .tabla th { text-align: left; font-weight: 500; font-size: 14px; color: var(--gris); padding: 14px 24px 10px; border-bottom: 1px solid var(--linea); }
+  .tabla td { padding: 14px 24px; border-bottom: 1px solid #edf2f8; }
+  .tabla td.num, .tabla th.num { text-align: right; }
+  .barra-stock { display: block; height: 6px; border-radius: 3px; background: #edf2f8; margin-top: 7px; width: 140px; overflow: hidden; }
+  .barra-stock b { display: block; height: 100%; background: var(--azul); border-radius: 3px; }
+  .bajo .barra-stock b { background: var(--alerta); }
+  .estado { font-size: 14px; font-weight: 600; }
+  .estado.ok { color: var(--ok); }
+  .estado.bajo { color: var(--alerta); }
+  .resumen { border-left: 1px solid var(--linea); padding: 22px 24px; display: flex; flex-direction: column; gap: 22px; background: #fbfcfe; }
+  .resumen div { font-size: 14px; color: var(--gris); }
+  .resumen strong { display: block; font-size: 30px; letter-spacing: -0.02em; color: var(--tinta); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .aviso { font-size: 14px; background: #fff4ea; color: #7a3a0c; border-radius: 10px; padding: 12px 14px; line-height: 1.4; }
+  .app-cuerpo.cambiando { opacity: 0.25; transition: opacity .15s; }
+  .app-cuerpo { transition: opacity .25s; }
+
+  /* ---------- Secciones ---------- */
+  section.bloque { padding: 110px 0; }
+  .blanco { background: #fff; }
+  h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; font-weight: 800; max-width: 22ch; text-wrap: balance; }
+  .intro { font-size: 19px; color: var(--gris); max-width: 58ch; margin-top: 16px; }
+
+  /* Problema → solución, como un libro de bodega */
+  .libro { margin-top: 52px; border-top: 2px solid var(--tinta); }
+  .libro-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 24px 0; border-bottom: 1px solid var(--linea); align-items: baseline; }
+  .libro-fila.cabeza { padding: 12px 0; font-size: 14px; color: var(--gris); font-weight: 500; }
+  .libro-fila:not(.cabeza) p:first-child { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+  .libro-fila p:last-child { color: var(--gris); }
+  .libro-fila p:last-child b { color: var(--tinta); font-weight: 600; }
+
+  /* Apps en producción */
+  .producto { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: center; margin-top: 64px; }
+  .producto + .producto { margin-top: 96px; }
+  .producto.invertido { grid-template-columns: 7fr 5fr; }
+  .producto.invertido .producto-texto { order: 2; }
+  .producto-marca { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .producto-marca img { width: 44px; height: 44px; border-radius: 10px; }
+  .producto-marca h3 { font-size: 30px; letter-spacing: -0.02em; font-weight: 800; }
+  .producto-texto p { color: var(--gris); }
+  .producto-texto ul { list-style: none; margin: 20px 0 24px; }
+  .producto-texto li { padding: 9px 0; border-top: 1px solid var(--linea); font-size: 17px; }
+  .producto-texto a.enlace { font-weight: 600; color: var(--azul); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .captura { border-radius: 14px; border: 1px solid var(--linea); box-shadow: 0 24px 50px -28px rgba(13, 62, 120, 0.4); }
+
+  .otros { margin-top: 96px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; }
+  .otros h3 { grid-column: 1 / -1; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .otros div { padding: 18px 0; border-top: 1px solid var(--linea); }
+  .otros b { display: block; font-size: 17px; }
+  .otros span { font-size: 16px; color: var(--gris); }
+
+  /* Clientes */
+  .clientes { margin-top: 52px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .cliente img { width: 72px; height: 72px; border-radius: 16px; object-fit: cover; border: 1px solid var(--linea); background: #fff; }
+  .cliente b { display: block; margin-top: 16px; font-size: 18px; }
+  .cliente small { display: block; color: var(--gris); font-size: 15px; }
+  .cliente p { margin-top: 10px; font-size: 16px; color: var(--gris); }
+
+  /* Proceso: sí es una secuencia, por eso va numerado */
+  .pasos { margin-top: 52px; display: grid; grid-template-columns: repeat(4, 1fr); counter-reset: paso; }
+  .paso { padding: 0 28px 0 0; counter-increment: paso; }
+  .paso::before { content: counter(paso); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--azul); color: var(--azul); font-weight: 700; margin-bottom: 18px; }
+  .paso b { display: block; font-size: 19px; margin-bottom: 6px; }
+  .paso p { font-size: 16px; color: var(--gris); }
+  .garantia { margin-top: 48px; background: var(--tinta); color: #fff; border-radius: 18px; padding: 30px 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .garantia p { font-size: 21px; font-weight: 600; max-width: 52ch; letter-spacing: -0.01em; }
+  .garantia p span { color: var(--cielo); font-weight: 400; display: block; font-size: 17px; margin-top: 4px; }
+
+  /* Fundador */
+  .fundador { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
+  .fundador img { border-radius: 18px; width: 220px; height: 220px; object-fit: cover; }
+  .fundador blockquote { font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.3; letter-spacing: -0.02em; font-weight: 600; max-width: 34ch; }
+  .fundador .firma { margin-top: 18px; color: var(--gris); }
+  .fundador .firma b { color: var(--tinta); }
+  .fundador .firma a { color: var(--azul); font-weight: 600; }
+
+  /* Cierre */
+  .cierre { padding: 120px 0 100px; background: var(--azul-hondo); color: #fff; }
+  .cierre .prompt { font-family: var(--mono); color: var(--cielo); font-size: 18px; margin-bottom: 18px; }
+  .cierre h2 { color: #fff; max-width: 18ch; }
+  .cierre p { color: var(--cielo); margin: 18px 0 32px; max-width: 50ch; font-size: 19px; }
+  footer { background: var(--azul-hondo); color: #8fb2dc; font-size: 15px; border-top: 1px solid rgba(194, 217, 246, 0.15); padding: 26px 0; }
+  footer .envoltura { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .menu a:not(.btn) { display: none; }
+    .hero-sub { grid-template-columns: 1fr; gap: 24px; }
+    .app-cuerpo { grid-template-columns: 1fr; }
+    .resumen { border-left: 0; border-top: 1px solid var(--linea); flex-direction: row; flex-wrap: wrap; }
+    .resumen > div { flex: 1 1 120px; }
+    .app-tabs { display: none; }
+    .producto, .producto.invertido { grid-template-columns: 1fr; gap: 28px; }
+    .producto.invertido .producto-texto { order: 0; }
+    .otros { grid-template-columns: 1fr 1fr; }
+    .clientes { grid-template-columns: 1fr 1fr; }
+    .pasos { grid-template-columns: 1fr 1fr; gap: 36px 0; }
+    .garantia { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    .envoltura { padding: 0 20px; }
+    .hero { padding-top: 28px; }
+    section.bloque { padding: 76px 0; }
+    .libro-fila { grid-template-columns: 1fr; gap: 6px; }
+    .libro-fila.cabeza { display: none; }
+    .tabla th:nth-child(3), .tabla td:nth-child(3) { display: none; }
+    .barra-stock { width: 90px; }
+    .linea2 { display: inline; white-space: normal; }
+    .hero h1 { min-height: 3.1em; }
+    .tabla th, .tabla td { padding-left: 16px; padding-right: 16px; }
+    .otros, .clientes, .pasos { grid-template-columns: 1fr; }
+    .fundador { grid-template-columns: 1fr; gap: 24px; }
+    .fundador img { width: 140px; height: 140px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .negocio { animation: none; }
+    .app-cuerpo, .app-cuerpo.cambiando { transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="envoltura barra">
+  <a class="logo" href="#"><img src="assets/softgest-icon.svg" alt="" /><span class="logo-txt">soft<span>gest</span></span></a>
+  <nav class="menu" aria-label="Principal">
+    <a href="#resolvemos">Qué resolvemos</a>
+    <a href="#apps">Apps</a>
+    <a href="#clientes">Clientes</a>
+    <a href="#como">Cómo trabajamos</a>
+    <a class="btn btn-wa btn-sm" href="https://wa.me/573027132640?text=Hola,%20quiero%20la%20demo%20gratis%20de%2015%20d%C3%ADas">Escríbenos</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="envoltura">
+    <h1>Una app hecha para <span class="linea2">tu <span class="negocio" id="negocio">peletería</span></span></h1>
+
+    <div class="hero-sub">
+      <p>Inventario, ventas, costos y ganancias en una sola app, armada con <strong>los productos y la forma de trabajar de tu negocio</strong>. Si ya llevas todo en Excel, pasamos tus datos para que no empieces de cero.</p>
+      <div class="hero-cta">
+        <a class="btn btn-wa" href="https://wa.me/573027132640?text=Hola,%20quiero%20la%20demo%20gratis%20de%2015%20d%C3%ADas">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+          Pide tu demo gratis
+        </a>
+        <small>Pago único desde $200.000. Pruébala 15 días antes de pagar.</small>
+      </div>
+    </div>
+
+    <div class="selector" role="group" aria-label="Elige tu tipo de negocio">
+      <span class="selector-titulo">Mira cómo se vería en:</span>
+      <button class="chip" data-k="peleteria" aria-pressed="true">Peletería</button>
+      <button class="chip" data-k="ropa" aria-pressed="false">Tienda de ropa</button>
+      <button class="chip" data-k="vikingos" aria-pressed="false">Fábrica de vikingos</button>
+      <button class="chip" data-k="motos" aria-pressed="false">Repuestos de motos</button>
+      <button class="chip" data-k="drogueria" aria-pressed="false">Droguería</button>
+      <button class="chip" data-k="calzado" aria-pressed="false">Fábrica de calzado</button>
+    </div>
+
+    <div class="app" aria-live="polite">
+      <div class="app-cabeza">
+        <div class="app-nombre"><i id="app-ini">C</i><span id="app-titulo">Cueros del Norte</span></div>
+        <div class="app-tabs"><span>Inventario</span><span>Ventas</span><span>Ganancias</span><span>Reportes</span></div>
+      </div>
+      <div class="app-cuerpo" id="app-cuerpo">
+        <table class="tabla">
+          <thead><tr><th>Producto</th><th>Existencia</th><th class="num">Precio</th><th>Estado</th></tr></thead>
+          <tbody id="filas"></tbody>
+        </table>
+        <aside class="resumen" id="resumen"></aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque blanco" id="resolvemos">
+  <div class="envoltura">
+    <h2>Empezamos por lo que hoy te quita plata</h2>
+    <p class="intro">No vendemos módulos sueltos. Revisamos qué está fallando en tu negocio y armamos la app alrededor de eso.</p>
+    <div class="libro" role="table">
+      <div class="libro-fila cabeza" role="row"><p role="columnheader">Si hoy te pasa esto</p><p role="columnheader">Esto es lo que hacemos</p></div>
+      <div class="libro-fila" role="row"><p role="cell">No sabes cuánta mercancía tienes ni dónde está</p><p role="cell"><b>Control de inventario</b> en tiempo real, por bodega o sede, con historial de quién movió qué y cuándo.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Vendes, pero no sabes cuánto te queda de ganancia</p><p role="cell"><b>Ventas, costos y ganancias</b> por día, semana o mes, con descarga a Excel.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Las facturas electrónicas se pierden en el correo</p><p role="cell"><b>Facturación DIAN</b>: tus facturas llegan solas desde Gmail y se cruzan contra el reporte de la DIAN.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Los clientes preguntan y nadie les hace seguimiento</p><p role="cell"><b>CRM</b> con el historial de cada cliente y alertas para volver a llamarlo.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">La nómina y la caja se cuadran a mano cada mes</p><p role="cell"><b>Nómina y tesorería</b>: liquidación con la norma colombiana, cuentas por pagar y por cobrar.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Tu negocio casi no aparece en internet</p><p role="cell"><b>Página web y manejo de redes</b> en Facebook e Instagram, con campañas pensadas para tu ciudad.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="apps">
+  <div class="envoltura">
+    <h2>Apps que ya están trabajando en negocios reales</h2>
+    <p class="intro">Estas son capturas de las apps funcionando, con datos de demostración para proteger la información de nuestros clientes.</p>
+
+    <article class="producto">
+      <div class="producto-texto">
+        <div class="producto-marca"><img src="assets/stocka-icon.png" alt="" /><h3>Stocka</h3></div>
+        <p>Inventario multiusuario para comercios, repuestos y bodegas. Nació en una operación real de 12 bodegas.</p>
+        <ul>
+          <li>Búsqueda instantánea con existencias por bodega</li>
+          <li>Ingresos, egresos y traslados con consecutivo automático</li>
+          <li>Kardex completo de cada producto</li>
+        </ul>
+        <a class="enlace" href="stocka.html">Conoce Stocka</a>
+      </div>
+      <img class="captura" src="assets/capturas/stocka-busqueda.webp" alt="Stocka: búsqueda de productos con existencias en bodega y almacén" />
+    </article>
+
+    <article class="producto invertido">
+      <div class="producto-texto">
+        <div class="producto-marca"><img src="assets/electra-icon.png" alt="" /><h3>Electra</h3></div>
+        <p>Tus facturas electrónicas organizadas sin buscar en el correo ni cruzar reportes a mano.</p>
+        <ul>
+          <li>Sincronización automática desde Gmail</li>
+          <li>Cruce contra el reporte de la DIAN</li>
+          <li>Estado contable de cada factura por etapas</li>
+        </ul>
+        <a class="enlace" href="electra.html">Conoce Electra</a>
+      </div>
+      <img class="captura" src="assets/capturas/electra-cruce.webp" alt="Electra: cruce automático de facturas contra el reporte de la DIAN" />
+    </article>
+
+    <div class="otros">
+      <h3>También en el portafolio</h3>
+      <div><b>Trazo</b><span>Traslados entre sedes, con devoluciones y soportes.</span></div>
+      <div><b>Nexo</b><span>CRM para hacer seguimiento a cada cliente.</span></div>
+      <div><b>NomiCo</b><span>Nómina con prestaciones y comprobantes.</span></div>
+      <div><b>CajaFlow</b><span>Flujo de caja, cuentas por pagar y por cobrar.</span></div>
+      <div><b>TaskFlow</b><span>Tareas del equipo en tablero Kanban.</span></div>
+      <div><b>Pulso</b><span>Tableros de datos para decidir con números.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque blanco" id="clientes">
+  <div class="envoltura">
+    <h2>Negocios que ya trabajan con SoftGest</h2>
+    <div class="clientes">
+      <div class="cliente"><img src="assets/clientes/vikingos-juanchis.webp" alt="Logo de Vikingos Juanchis" /><b>Vikingos Juanchis</b><small>Fábrica de vikingos</small><p>App de producción, costos y ventas con los productos más vendidos.</p></div>
+      <div class="cliente"><img src="assets/clientes/plomeria-rios.webp" alt="Logo de Plomería Rios Junior" /><b>Plomería Rios Junior</b><small>Servicios de plomería</small><p>Contenido con IA y campañas en Facebook e Instagram.</p></div>
+      <div class="cliente"><img src="assets/clientes/plomeria-antioquia.webp" alt="Logo de Plomería Antioquia" /><b>Plomería Antioquia</b><small>Servicios de plomería</small><p>Sitio web con contacto directo por WhatsApp.</p></div>
+      <div class="cliente"><img src="assets/clientes/jk2m-repuestos.webp" alt="Logo de JK2M Repuestos" /><b>JK2M Repuestos</b><small>Repuestos para motos</small><p>Inventario en Stocka y tienda online con pedidos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="como">
+  <div class="envoltura">
+    <h2>Así pasamos tu negocio a una app</h2>
+    <div class="pasos">
+      <div class="paso"><b>Conversamos</b><p>En Cúcuta te visitamos con cita. En otras ciudades, por videollamada.</p></div>
+      <div class="paso"><b>Te mostramos la demo</b><p>Una primera versión con tus productos, lista en días.</p></div>
+      <div class="paso"><b>La pruebas 15 días</b><p>La usas en tu día a día y ajustamos lo que haga falta.</p></div>
+      <div class="paso"><b>Pagas y seguimos contigo</b><p>Pago único y soporte permanente, sin mensualidades.</p></div>
+    </div>
+    <div class="garantia">
+      <p>No pagas nada hasta que la app esté a punto.<span>Precios desde $200.000, ajustados al presupuesto de cada negocio.</span></p>
+      <a class="btn btn-wa" href="https://wa.me/573027132640?text=Hola,%20quiero%20la%20demo%20gratis%20de%2015%20d%C3%ADas">Pide tu demo gratis</a>
+    </div>
+  </div>
+</section>
+
+<section class="bloque blanco">
+  <div class="envoltura fundador">
+    <img src="assets/roldan-garcia.webp" alt="Roldán García, fundador de SoftGest" />
+    <div>
+      <blockquote>Llevo más de 5 años contando mercancía en bodegas. Cada app de SoftGest nace de un problema que viví en una operación real.</blockquote>
+      <p class="firma"><b>Roldán García</b>, fundador. Administrador de Empresas y Tecnólogo en Análisis y Programación de Sistemas. <a href="https://www.linkedin.com/in/roldan-evelio-garcia-uribe-684234365">Ver perfil en LinkedIn</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="cierre">
+  <div class="envoltura">
+    <p class="prompt" aria-hidden="true">&gt;_</p>
+    <h2>Cuéntanos cómo trabaja tu negocio</h2>
+    <p>Te respondemos por WhatsApp en menos de 24 horas con una propuesta sin costo.</p>
+    <a class="btn btn-wa" href="https://wa.me/573027132640?text=Hola,%20estoy%20interesado%20en%20una%20aplicaci%C3%B3n%20para%20mi%20empresa">Escribir al 302 713 2640</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="envoltura"><span>© 2026 SoftGest. Desarrollo de software y marketing digital en Colombia.</span><span>softgestapps.com</span></div>
+</footer>
+
+<script>
+  const datos = {
+    peleteria: { palabra: "peletería", nombre: "Cueros del Norte", filas: [
+      ["Cuero napa negro", "18 m", 72, "$58.000 / m"], ["Hebilla dorada 3 cm", "240 und", 90, "$1.800"],
+      ["Hilo encerado café", "6 conos", 14, "$12.500"], ["Cremallera metálica 20 cm", "95 und", 60, "$2.300"],
+      ["Billetera cuero dama", "11 und", 30, "$65.000"] ],
+      resumen: [["Ventas de hoy", "$1.240.000"], ["Ganancia del mes", "$8.760.000"]], aviso: "El hilo encerado café se acaba en 4 días al ritmo de esta semana." },
+    ropa: { palabra: "tienda de ropa", nombre: "Moda Valentina", filas: [
+      ["Jean dama tiro alto, talla 8", "34 und", 68, "$89.000"], ["Camiseta básica blanca M", "6 und", 12, "$25.000"],
+      ["Chaqueta jean hombre L", "15 und", 45, "$120.000"], ["Vestido floral talla S", "21 und", 55, "$95.000"],
+      ["Sudadera jogger gris", "9 und", 20, "$55.000"] ],
+      resumen: [["Ventas de hoy", "$2.180.000"], ["Prenda más vendida", "Jean tiro alto"]], aviso: "Quedan 6 camisetas básicas M. Es la talla que más rota." },
+    vikingos: { palabra: "fábrica de vikingos", nombre: "Vikingos La Esquina", filas: [
+      ["Leche entera", "40 L", 50, "$4.200 / L"], ["Azúcar", "12 kg", 25, "$4.600 / kg"],
+      ["Bolsas para vikingo", "1.800 und", 85, "$35"], ["Saborizante de mora", "2 frascos", 10, "$9.800"],
+      ["Vikingos listos de arequipe", "320 und", 75, "$1.000"] ],
+      resumen: [["Producidos hoy", "620 vikingos"], ["Costo por vikingo", "$410"]], aviso: "Con el saborizante de mora que queda alcanza para 1 producción más." },
+    motos: { palabra: "venta de repuestos", nombre: "Repuestos El Pistón", filas: [
+      ["Pastillas de freno AKT 125", "48 jgo", 80, "$18.000"], ["Kit de arrastre Boxer CT", "3 kit", 10, "$95.000"],
+      ["Aceite 20W50, 1 L", "60 und", 70, "$28.000"], ["Bujía NGK C7HSA", "110 und", 88, "$9.500"],
+      ["Llanta trasera 90/90-18", "7 und", 25, "$165.000"] ],
+      resumen: [["Ventas de hoy", "$3.050.000"], ["Referencias activas", "1.284"]], aviso: "Quedan 3 kits de arrastre Boxer CT. Se venden 2 por semana." },
+    drogueria: { palabra: "droguería", nombre: "Droguería San Rafael", filas: [
+      ["Acetaminofén 500 mg x 100", "22 caj", 60, "$9.800"], ["Loratadina 10 mg x 10", "5 caj", 12, "$4.500"],
+      ["Suero oral 500 ml", "36 und", 70, "$3.900"], ["Alcohol antiséptico 350 ml", "28 und", 55, "$6.200"],
+      ["Tapabocas x 50", "14 caj", 35, "$12.000"] ],
+      resumen: [["Ventas de hoy", "$1.870.000"], ["Por vencer este mes", "9 lotes"]], aviso: "La loratadina está por agotarse y un lote vence el 30 de noviembre." },
+    calzado: { palabra: "fábrica de calzado", nombre: "Calzado Ruiz", filas: [
+      ["Suela PVC dama talla 37", "120 pares", 65, "$6.500"], ["Cuero sintético negro", "9 m", 15, "$22.000 / m"],
+      ["Pegante amarillo", "4 galones", 40, "$48.000"], ["Plantilla en espuma", "300 pares", 90, "$1.200"],
+      ["Botín dama terminado", "48 pares", 55, "$85.000"] ],
+      resumen: [["En producción", "3 órdenes"], ["Costo por par", "$31.400"]], aviso: "El cuero sintético negro alcanza solo para la orden de esta semana." }
+  };
+
+  const palabra = document.getElementById("negocio");
+  const cuerpo = document.getElementById("app-cuerpo");
+  const chips = [...document.querySelectorAll(".chip")];
+  const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let escribiendo = null, auto = null;
+
+  function pintar(k) {
+    const d = datos[k];
+    document.getElementById("app-titulo").textContent = d.nombre;
+    document.getElementById("app-ini").textContent = d.nombre[0];
+    document.getElementById("filas").innerHTML = d.filas.map(([p, ex, pct, precio]) => {
+      const bajo = pct < 20;
+      return `<tr class="${bajo ? "bajo" : ""}"><td>${p}</td><td>${ex}<span class="barra-stock"><b style="width:${pct}%"></b></span></td><td class="num">${precio}</td><td><span class="estado ${bajo ? "bajo" : "ok"}">${bajo ? "Por agotarse" : "Al día"}</span></td></tr>`;
+    }).join("");
+    document.getElementById("resumen").innerHTML =
+      d.resumen.map(([t, v]) => `<div>${t}<strong>${v}</strong></div>`).join("") + `<p class="aviso">${d.aviso}</p>`;
+  }
+
+  function escribir(texto) {
+    clearInterval(escribiendo);
+    if (sinMovimiento) { palabra.textContent = texto; return; }
+    let actual = palabra.textContent;
+    // borrar y luego teclear, como en el ">_" del logo
+    escribiendo = setInterval(() => {
+      if (!texto.startsWith(actual)) { actual = actual.slice(0, -1); }
+      else if (actual.length < texto.length) { actual = texto.slice(0, actual.length + 1); }
+      else { clearInterval(escribiendo); }
+      palabra.textContent = actual;
+    }, 38);
+  }
+
+  function elegir(k) {
+    chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.k === k));
+    escribir(datos[k].palabra);
+    if (sinMovimiento) { pintar(k); return; }
+    cuerpo.classList.add("cambiando");
+    setTimeout(() => { pintar(k); cuerpo.classList.remove("cambiando"); }, 160);
+  }
+
+  chips.forEach(c => c.addEventListener("click", () => { clearInterval(auto); elegir(c.dataset.k); }));
+  pintar("peleteria");
+
+  // Recorre los negocios solo hasta que la persona elige uno
+  if (!sinMovimiento) {
+    const orden = chips.map(c => c.dataset.k); let i = 0;
+    auto = setInterval(() => { i = (i + 1) % orden.length; elegir(orden[i]); }, 4200);
+  }
+</script>
+</body>
+</html>
