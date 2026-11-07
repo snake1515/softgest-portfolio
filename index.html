@@ -1,1423 +1,460 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SoftGest — Soluciones digitales para tu empresa</title>
-  <meta name="description" content="Desarrollo de software a medida y campañas en Facebook e Instagram para empresas colombianas: control de inventario, facturación electrónica DIAN, CRM, nómina y más. Entrega rápida y sin licencias costosas." />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%231a5fad%22/><text x=%2250%22 y=%2266%22 font-size=%2258%22 font-family=%22Arial%2C sans-serif%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>S</text></svg>" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SoftGest — Apps de gestión hechas para tu negocio</title>
+<meta name="description" content="Apps de inventario, ventas, facturación DIAN y más, hechas a la medida de tu negocio. Pago único desde $200.000 y 15 días de prueba gratis." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="SoftGest" />
+<meta property="og:title" content="SoftGest — Apps de gestión hechas para tu negocio" />
+<meta property="og:description" content="Inventario, ventas, facturación DIAN y más, a la medida de tu negocio. Pago único desde $200.000 y 15 días de prueba gratis." />
+<meta property="og:locale" content="es_CO" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="SoftGest — Apps de gestión hechas para tu negocio" />
+<meta name="twitter:description" content="Inventario, ventas, facturación DIAN y más, a la medida de tu negocio." />
+<link rel="icon" href="assets/softgest-icon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --tinta: #0b2545;      /* texto principal: azul tinta, no negro */
+    --azul: #1a5fad;       /* azul SoftGest (del ícono) */
+    --azul-hondo: #0d3e78;
+    --cielo: #c2d9f6;      /* la chispa del ícono */
+    --papel: #f3f6fb;      /* fondo frío, como hoja de bodega */
+    --linea: #d5dfec;
+    --gris: #5a6b82;
+    --ok: #17845a;
+    --alerta: #b5530f;
+    --whatsapp: #1fa855;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --sans: "Schibsted Grotesk", system-ui, sans-serif;
+    --ancho: 1180px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); color: var(--tinta); background: var(--papel); font-size: 18px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 4px; }
+  .envoltura { max-width: var(--ancho); margin: 0 auto; padding: 0 28px; }
 
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="SoftGest" />
-  <meta property="og:title" content="SoftGest — Soluciones digitales para tu empresa" />
-  <meta property="og:description" content="Desarrollo de software a medida y campañas en Facebook e Instagram para empresas colombianas. Entrega rápida, económica y lista para usar." />
-  <meta property="og:locale" content="es_CO" />
+  /* ---------- Barra superior ---------- */
+  .barra { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--mono); font-weight: 700; font-size: 21px; letter-spacing: -0.02em; color: var(--azul-hondo); }
+  .logo img { width: 34px; height: 34px; }
+  .logo-txt span { color: var(--azul); font-weight: 500; }
+  .menu { display: flex; gap: 30px; align-items: center; font-size: 16px; }
+  .menu a { text-decoration: none; color: var(--gris); font-weight: 500; }
+  .menu a:hover { color: var(--tinta); }
+  .menu a.btn-wa, .menu a.btn-wa:hover { color: #fff; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; font: 600 17px var(--sans); text-decoration: none; border-radius: 12px; padding: 15px 24px; border: 0; cursor: pointer; }
+  .btn-wa { background: var(--whatsapp); color: #fff; }
+  .btn-wa:hover { background: #178a45; }
+  .btn-wa svg { width: 20px; height: 20px; }
+  .btn-sm { padding: 10px 16px; font-size: 15px; border-radius: 10px; }
 
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="SoftGest — Soluciones digitales para tu empresa" />
-  <meta name="twitter:description" content="Desarrollo de software a medida y campañas en Facebook e Instagram para empresas colombianas." />
+  /* ---------- Hero: la app cambia según el negocio ---------- */
+  .hero { padding: 56px 0 0; }
+  .hero h1 { font-size: clamp(2.5rem, 6.2vw, 5.4rem); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; max-width: 14ch; }
+  .hero h1 { max-width: none; }
+  .linea2 { display: block; white-space: nowrap; }
+  /* la palabra editable lleva el cursor del ">_" del logo */
+  .negocio { color: var(--azul); border-bottom: 0.08em dashed var(--cielo); border-right: 0.07em solid var(--azul); padding-right: 0.04em; animation: parpadeo 1s steps(1) infinite; }
+  @keyframes parpadeo { 50% { border-right-color: transparent; } }
+  .hero-sub { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; margin-top: 30px; }
+  .hero-sub p { font-size: 20px; color: var(--gris); max-width: 46ch; }
+  .hero-sub p strong { color: var(--tinta); font-weight: 600; }
+  .hero-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hero-cta small { font-size: 15px; color: var(--gris); }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .selector { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .selector-titulo { font-size: 15px; color: var(--gris); margin-right: 6px; }
+  .chip { font: 500 15px var(--sans); color: var(--tinta); background: #fff; border: 1px solid var(--linea); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+  .chip:hover { border-color: var(--azul); }
+  .chip[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: #fff; }
 
-    :root {
-      --blue-50: #e8f1fb;
-      --blue-100: #c2d9f6;
-      --blue-200: #8fb9ef;
-      --blue-400: #3a82d4;
-      --blue-600: #1a5fad;
-      --blue-800: #0d3e78;
-      --blue-900: #07244a;
-      --gray-50: #f7f8fa;
-      --gray-100: #eef0f4;
-      --gray-200: #d8dce6;
-      --gray-400: #8a91a0;
-      --gray-600: #4f5666;
-      --gray-800: #1e2232;
-      --white: #ffffff;
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-    }
+  .app { margin-top: 20px; background: #fff; border: 1px solid var(--linea); border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: 0 -1px 0 #fff inset, 0 30px 60px -30px rgba(13, 62, 120, 0.35); overflow: hidden; }
+  .app-cabeza { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-bottom: 1px solid var(--linea); }
+  .app-nombre { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 17px; }
+  .app-nombre i { width: 30px; height: 30px; border-radius: 8px; background: var(--azul); color: #fff; font-style: normal; display: grid; place-items: center; font-size: 15px; font-weight: 700; }
+  .app-tabs { display: flex; gap: 4px; font-size: 14px; }
+  .app-tabs span { padding: 6px 12px; border-radius: 8px; color: var(--gris); }
+  .app-tabs span:first-child { background: var(--papel); color: var(--tinta); font-weight: 600; }
+  .app-cuerpo { display: grid; grid-template-columns: 1fr 300px; }
+  .tabla { width: 100%; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .tabla th { text-align: left; font-weight: 500; font-size: 14px; color: var(--gris); padding: 14px 24px 10px; border-bottom: 1px solid var(--linea); }
+  .tabla td { padding: 14px 24px; border-bottom: 1px solid #edf2f8; }
+  .tabla td.num, .tabla th.num { text-align: right; }
+  .barra-stock { display: block; height: 6px; border-radius: 3px; background: #edf2f8; margin-top: 7px; width: 140px; overflow: hidden; }
+  .barra-stock b { display: block; height: 100%; background: var(--azul); border-radius: 3px; }
+  .bajo .barra-stock b { background: var(--alerta); }
+  .estado { font-size: 14px; font-weight: 600; }
+  .estado.ok { color: var(--ok); }
+  .estado.bajo { color: var(--alerta); }
+  .resumen { border-left: 1px solid var(--linea); padding: 22px 24px; display: flex; flex-direction: column; gap: 22px; background: #fbfcfe; }
+  .resumen div { font-size: 14px; color: var(--gris); }
+  .resumen strong { display: block; font-size: 30px; letter-spacing: -0.02em; color: var(--tinta); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .aviso { font-size: 14px; background: #fff4ea; color: #7a3a0c; border-radius: 10px; padding: 12px 14px; line-height: 1.4; }
+  .app-cuerpo.cambiando { opacity: 0.25; transition: opacity .15s; }
+  .app-cuerpo { transition: opacity .25s; }
 
-    html { scroll-behavior: smooth; }
+  /* ---------- Secciones ---------- */
+  section.bloque { padding: 110px 0; }
+  .blanco { background: #fff; }
+  h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; font-weight: 800; max-width: 22ch; text-wrap: balance; }
+  .intro { font-size: 19px; color: var(--gris); max-width: 58ch; margin-top: 16px; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--white);
-      color: var(--gray-800);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+  /* Problema → solución, como un libro de bodega */
+  .libro { margin-top: 52px; border-top: 2px solid var(--tinta); }
+  .libro-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 24px 0; border-bottom: 1px solid var(--linea); align-items: baseline; }
+  .libro-fila.cabeza { padding: 12px 0; font-size: 14px; color: var(--gris); font-weight: 500; }
+  .libro-fila:not(.cabeza) p:first-child { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+  .libro-fila p:last-child { color: var(--gris); }
+  .libro-fila p:last-child b { color: var(--tinta); font-weight: 600; }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2.5rem;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--gray-200);
-    }
-    .nav-logo {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: 'JetBrains Mono', monospace; font-weight: 700;
-      font-size: 20px; color: var(--blue-600); letter-spacing: -0.5px; text-decoration: none;
-    }
-    .nav-logo span { color: var(--gray-800); font-weight: 500; }
-    .brand-icon { display: block; flex-shrink: 0; }
-    .wm { font-weight: 700; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { text-decoration: none; font-size: 14px; color: var(--gray-600); font-weight: 400; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--blue-600); }
-    .nav-links a.active { color: var(--blue-600); font-weight: 500; }
-    .nav-cta {
-      background: var(--blue-600); color: var(--white);
-      border: none; padding: 8px 20px;
-      border-radius: var(--radius-md); font-size: 14px; font-weight: 500;
-      cursor: pointer; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .nav-cta:hover { background: var(--blue-800); transform: translateY(-1px); }
+  /* Apps en producción */
+  .producto { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: center; margin-top: 64px; }
+  .producto + .producto { margin-top: 96px; }
+  .producto.invertido { grid-template-columns: 7fr 5fr; }
+  .producto.invertido .producto-texto { order: 2; }
+  .producto-marca { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .producto-marca img { width: 44px; height: 44px; border-radius: 10px; }
+  .producto-marca h3 { font-size: 30px; letter-spacing: -0.02em; font-weight: 800; }
+  .producto-texto p { color: var(--gris); }
+  .producto-texto ul { list-style: none; margin: 20px 0 24px; }
+  .producto-texto li { padding: 9px 0; border-top: 1px solid var(--linea); font-size: 17px; }
+  .producto-texto a.enlace { font-weight: 600; color: var(--azul); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .captura { border-radius: 14px; border: 1px solid var(--linea); box-shadow: 0 24px 50px -28px rgba(13, 62, 120, 0.4); }
 
-    /* HERO */
-    .hero {
-      padding: 8rem 2.5rem 5rem;
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 3rem; align-items: center;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 500; color: var(--blue-600);
-      background: var(--blue-50); border: 1px solid var(--blue-100);
-      padding: 4px 12px; border-radius: 20px; margin-bottom: 1.25rem;
-    }
-    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-400); }
-    .hero h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      line-height: 1.15;
-      color: var(--gray-800);
-      margin-bottom: 1.25rem;
-      letter-spacing: -0.5px;
-    }
-    .hero h1 em { font-style: italic; color: var(--blue-600); }
-    .hero p {
-      font-size: 16px; color: var(--gray-600);
-      max-width: 460px; margin-bottom: 2rem; line-height: 1.7;
-    }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--blue-600); color: var(--white);
-      border: none; padding: 12px 26px;
-      border-radius: var(--radius-md); font-size: 15px; font-weight: 500;
-      cursor: pointer; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-primary:hover { background: var(--blue-800); transform: translateY(-2px); }
-    .btn-outline {
-      background: transparent; color: var(--gray-800);
-      border: 1px solid var(--gray-200); padding: 12px 26px;
-      border-radius: var(--radius-md); font-size: 15px; font-weight: 400;
-      cursor: pointer; text-decoration: none;
-      transition: border-color 0.2s, background 0.2s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-outline:hover { border-color: var(--blue-200); background: var(--blue-50); }
+  .otros { margin-top: 96px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; }
+  .otros h3 { grid-column: 1 / -1; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .otros div { padding: 18px 0; border-top: 1px solid var(--linea); }
+  .otros b { display: block; font-size: 17px; }
+  .otros span { font-size: 16px; color: var(--gris); }
 
-    /* HERO VISUAL */
-    .hero-visual {
-      position: relative;
-      background: linear-gradient(135deg, var(--blue-50) 0%, var(--blue-100) 100%);
-      border-radius: var(--radius-xl);
-      padding: 2rem;
-      border: 1px solid var(--blue-200);
-      overflow: hidden;
-    }
-    .hero-visual::before {
-      content: '';
-      position: absolute; top: -40px; right: -40px;
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--blue-200) 0%, transparent 70%);
-      opacity: 0.5;
-    }
-    .mock-bar {
-      display: flex; align-items: center; gap: 6px; margin-bottom: 1.25rem;
-    }
-    .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .mock-title { font-size: 12px; color: var(--blue-600); font-weight: 500; margin-left: 4px; }
-    .mock-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-    .mock-card {
-      background: var(--white); border-radius: var(--radius-md);
-      padding: 12px; border: 1px solid var(--blue-100);
-    }
-    .mock-card-label { font-size: 10px; color: var(--gray-400); margin-bottom: 4px; }
-    .mock-card-value { font-size: 18px; font-weight: 600; color: var(--blue-800); }
-    .mock-card-sub { font-size: 10px; color: var(--blue-400); }
-    .mock-row {
-      background: var(--white); border-radius: var(--radius-md);
-      padding: 10px 12px; border: 1px solid var(--blue-100);
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 8px; font-size: 12px;
-    }
-    .mock-row-name { color: var(--gray-600); }
-    .mock-pill {
-      font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500;
-    }
-    .pill-green { background: #eaf3de; color: #3b6d11; }
-    .pill-blue { background: var(--blue-50); color: var(--blue-600); }
-    .pill-amber { background: #faeeda; color: #854f0b; }
+  /* Clientes */
+  .clientes { margin-top: 52px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .cliente img { width: 72px; height: 72px; border-radius: 16px; object-fit: cover; border: 1px solid var(--linea); background: #fff; }
+  .cliente b { display: block; margin-top: 16px; font-size: 18px; }
+  .cliente small { display: block; color: var(--gris); font-size: 15px; }
+  .cliente p { margin-top: 10px; font-size: 16px; color: var(--gris); }
 
-    /* STATS */
-    .stats {
-      background: var(--gray-800);
-      padding: 2.5rem 2.5rem;
-    }
-    .stats-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2rem; text-align: center;
-    }
-    .stat-num {
-      font-family: 'Instrument Serif', serif;
-      font-size: 2.5rem; color: var(--white); display: block;
-    }
-    .stat-label { font-size: 14px; color: var(--gray-400); margin-top: 4px; }
+  /* Proceso: sí es una secuencia, por eso va numerado */
+  .pasos { margin-top: 52px; display: grid; grid-template-columns: repeat(4, 1fr); counter-reset: paso; }
+  .paso { padding: 0 28px 0 0; counter-increment: paso; }
+  .paso::before { content: counter(paso); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--azul); color: var(--azul); font-weight: 700; margin-bottom: 18px; }
+  .paso b { display: block; font-size: 19px; margin-bottom: 6px; }
+  .paso p { font-size: 16px; color: var(--gris); }
+  .garantia { margin-top: 48px; background: var(--tinta); color: #fff; border-radius: 18px; padding: 30px 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .garantia p { font-size: 21px; font-weight: 600; max-width: 52ch; letter-spacing: -0.01em; }
+  .garantia p span { color: var(--cielo); font-weight: 400; display: block; font-size: 17px; margin-top: 4px; }
 
-    /* SERVICIOS */
-    .section {
-      padding: 5rem 2.5rem;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .section-label {
-      font-size: 12px; font-weight: 500; color: var(--blue-600);
-      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      color: var(--gray-800); margin-bottom: 1rem;
-      line-height: 1.2; letter-spacing: -0.3px;
-    }
-    .section-title em { color: var(--blue-600); font-style: italic; }
-    .section-sub {
-      font-size: 16px; color: var(--gray-600); max-width: 560px; line-height: 1.7;
-    }
+  /* Fundador */
+  .fundador { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
+  .fundador img { border-radius: 18px; width: 220px; height: 220px; object-fit: cover; }
+  .fundador blockquote { font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.3; letter-spacing: -0.02em; font-weight: 600; max-width: 34ch; }
+  .fundador .firma { margin-top: 18px; color: var(--gris); }
+  .fundador .firma b { color: var(--tinta); }
+  .fundador .firma a { color: var(--azul); font-weight: 600; }
 
-    /* SERVICIOS GRID */
-    .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; margin-top: 3rem;
-    }
-    .service-card {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 1.75rem;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-    .service-card:hover {
-      border-color: var(--blue-200);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(26, 95, 173, 0.1);
-    }
-    .service-icon {
-      width: 44px; height: 44px;
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem; font-size: 22px;
-    }
-    .service-card h3 { font-size: 16px; font-weight: 500; color: var(--gray-800); margin-bottom: 8px; }
-    .service-card p { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
-    .service-card ul { list-style: none; margin-top: 12px; }
-    .service-card ul li {
-      font-size: 13px; color: var(--gray-600);
-      padding: 4px 0; display: flex; align-items: flex-start; gap: 8px;
-    }
-    .service-card ul li::before { content: '→'; color: var(--blue-400); flex-shrink: 0; }
+  /* Cierre */
+  .cierre { padding: 120px 0 100px; background: var(--azul-hondo); color: #fff; }
+  .cierre .prompt { font-family: var(--mono); color: var(--cielo); font-size: 18px; margin-bottom: 18px; }
+  .cierre h2 { color: #fff; max-width: 18ch; }
+  .cierre p { color: var(--cielo); margin: 18px 0 32px; max-width: 50ch; font-size: 19px; }
+  footer { background: var(--azul-hondo); color: #8fb2dc; font-size: 15px; border-top: 1px solid rgba(194, 217, 246, 0.15); padding: 26px 0; }
+  footer .envoltura { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
-    /* PROYECTOS */
-    .projects-section { background: var(--gray-50); padding: 5rem 2.5rem; }
-    .projects-inner { max-width: 1100px; margin: 0 auto; }
-    .projects-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; margin-top: 3rem;
-    }
-    .project-card {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 1.75rem;
-      display: flex; flex-direction: column; gap: 1rem;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-    .project-card:hover {
-      border-color: var(--blue-200); transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(26, 95, 173, 0.08);
-    }
-    .project-header { display: flex; align-items: flex-start; gap: 14px; }
-    .project-icon {
-      width: 48px; height: 48px; flex-shrink: 0;
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center; font-size: 22px;
-    }
-    .project-header h3 { font-size: 17px; font-weight: 500; color: var(--gray-800); margin-bottom: 4px; }
-    .project-header p { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .project-tag {
-      font-size: 11px; padding: 3px 10px; border-radius: 20px;
-      background: var(--gray-100); color: var(--gray-600);
-      border: 1px solid var(--gray-200);
-    }
-    .project-feature {
-      display: flex; gap: 10px; flex-wrap: wrap;
-    }
-    .feature-item {
-      font-size: 12px; color: var(--blue-600);
-      background: var(--blue-50); border: 1px solid var(--blue-100);
-      padding: 3px 10px; border-radius: 20px;
-    }
-
-    /* PROCESO */
-    .process-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 1px; background: var(--gray-200);
-      border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
-      overflow: hidden; margin-top: 3rem;
-    }
-    .process-step {
-      background: var(--white); padding: 2rem 1.5rem;
-    }
-    .step-num {
-      font-family: 'Instrument Serif', serif;
-      font-size: 2.5rem; color: var(--blue-100);
-      display: block; margin-bottom: 0.75rem; line-height: 1;
-    }
-    .process-step h4 { font-size: 15px; font-weight: 500; color: var(--gray-800); margin-bottom: 6px; }
-    .process-step p { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
-
-    /* TECH */
-    .tech-grid {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2rem;
-    }
-    .tech-pill {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 16px; border-radius: 30px;
-      border: 1px solid var(--gray-200); background: var(--white);
-      font-size: 13px; font-weight: 400; color: var(--gray-600);
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .tech-pill img { display: block; flex-shrink: 0; }
-    .tech-pill:hover { border-color: var(--blue-200); background: var(--blue-50); color: var(--blue-600); }
-    .tech-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-    /* CONTACTO */
-    .contact-section {
-      background: var(--blue-800);
-      padding: 5rem 2.5rem;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .contact-section::before {
-      content: '';
-      position: absolute; top: -80px; left: 50%;
-      transform: translateX(-50%);
-      width: 500px; height: 300px;
-      background: radial-gradient(ellipse, rgba(58,130,212,0.3) 0%, transparent 70%);
-    }
-    .contact-inner { max-width: 600px; margin: 0 auto; position: relative; }
-    .contact-section .section-label { color: var(--blue-200); }
-    .contact-section .section-title { color: var(--white); margin-bottom: 1rem; }
-    .contact-section .section-sub { color: var(--blue-100); margin: 0 auto 2.5rem; }
-    .contact-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .btn-wa {
-      background: #25D366; color: var(--white);
-      border: none; padding: 14px 28px;
-      border-radius: var(--radius-md); font-size: 15px; font-weight: 500;
-      cursor: pointer; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-flex; align-items: center; gap: 10px;
-    }
-    .btn-wa:hover { background: #1ebe5c; transform: translateY(-2px); }
-    .btn-light {
-      background: rgba(255,255,255,0.1); color: var(--white);
-      border: 1px solid rgba(255,255,255,0.25); padding: 14px 28px;
-      border-radius: var(--radius-md); font-size: 15px;
-      cursor: pointer; text-decoration: none;
-      transition: background 0.2s;
-      display: inline-flex; align-items: center; gap: 10px;
-    }
-    .btn-light:hover { background: rgba(255,255,255,0.18); }
-
-    /* FOOTER */
-    footer {
-      background: var(--gray-800);
-      padding: 2rem 2.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-logo { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 16px; color: var(--white); letter-spacing: -0.3px; }
-    .footer-logo span { color: var(--blue-200); font-weight: 500; }
-    .footer-logo .brand-icon { width: 24px; height: 24px; }
-    .footer-text { font-size: 13px; color: var(--gray-400); }
-    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
-    .footer-links a { font-size: 13px; color: var(--gray-400); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--white); }
-
-    /* WHY */
-    .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin-top: 3rem; }
-    .why-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.75rem; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
-    .why-card:hover { border-color: var(--blue-200); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,95,173,0.08); }
-    .why-icon { font-size: 2rem; margin-bottom: 1rem; }
-    .why-card h4 { font-size: 15px; font-weight: 500; color: var(--gray-800); margin-bottom: 8px; }
-    .why-card p { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
-
-    /* SECTORES */
-    .sectors-section { background: var(--blue-800); }
-    .sectors-section .section-label { color: var(--blue-200); }
-    .sectors-section .section-title { color: var(--white); }
-    .sectors-section .section-sub { color: var(--blue-100); margin-bottom: 2.5rem; }
-    .sectors-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-    .sector-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; transition: background 0.2s; }
-    .sector-card:hover { background: rgba(255,255,255,0.15); }
-    .sector-icon { font-size: 1.75rem; flex-shrink: 0; }
-    .sector-card span { font-size: 14px; color: var(--white); font-weight: 400; line-height: 1.4; }
-
-    /* TESTIMONIOS */
-    .testimonios-section { background: var(--gray-50); }
-    .testimonios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 3rem; }
-    .testimonio-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 2rem 1.75rem; position: relative; }
-    .testimonio-quote { font-family: 'Instrument Serif', serif; font-size: 4rem; color: var(--blue-100); line-height: 0.8; margin-bottom: 1rem; }
-    .testimonio-card p { font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
-    .testimonio-autor { display: flex; align-items: center; gap: 12px; }
-    .testimonio-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--blue-600); color: var(--white); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .testimonio-autor strong { display: block; font-size: 13px; color: var(--gray-800); }
-    .testimonio-autor span { font-size: 12px; color: var(--gray-400); }
-
-    /* FAQ */
-    .faq-section { background: var(--white); }
-    .faq-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 3rem; }
-    .faq-item { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.5rem; cursor: pointer; }
-    .faq-q { font-size: 15px; font-weight: 500; color: var(--gray-800); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .faq-q::after { content: '+'; font-size: 20px; font-weight: 300; color: var(--blue-600); flex-shrink: 0; transition: transform 0.2s; }
-    .faq-item.open .faq-q::after { transform: rotate(45deg); }
-    .faq-item.open .faq-q { margin-bottom: 10px; }
-    .faq-a { font-size: 14px; color: var(--gray-600); line-height: 1.65; display: none; }
-    .faq-item.open .faq-a { display: block; }
-
-    /* COTIZACIÓN */
-    .cotizacion-section { background: var(--gray-50); }
-    .cotizacion-inner { max-width: 700px; margin-top: 2.5rem; }
-    .cotizacion-form { display: flex; flex-direction: column; gap: 18px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group label { font-size: 13px; font-weight: 500; color: var(--gray-600); }
-    .form-group input, .form-group select, .form-group textarea {
-      padding: 10px 14px; border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md); font-size: 14px;
-      font-family: 'DM Sans', sans-serif; color: var(--gray-800);
-      background: var(--white); outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--blue-400); box-shadow: 0 0 0 3px rgba(58,130,212,0.12);
-    }
-    .form-group textarea { resize: vertical; }
-
-    /* BOTÓN FLOTANTE WA */
-    .wa-float {
-      position: fixed; bottom: 28px; right: 28px; z-index: 999;
-      width: 56px; height: 56px; border-radius: 50%;
-      background: #25D366; color: white;
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none; font-size: 28px;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: pulse-wa 2.5s infinite;
-    }
-    .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.6); }
-    @keyframes pulse-wa {
-      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
-      50% { box-shadow: 0 4px 32px rgba(37,211,102,0.75); }
-    }
-
-    /* RESPONSIVE nuevas secciones */
-    @media (max-width: 768px) {
-      .why-grid { grid-template-columns: 1fr 1fr; }
-      .sectors-grid { grid-template-columns: 1fr 1fr; }
-      .testimonios-grid { grid-template-columns: 1fr; }
-      .faq-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-    }
-
-    /* ANIMACIÓN entrada secciones */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .anim { opacity: 0; animation: fadeUp 0.6s ease forwards; }
-    .anim-1 { animation-delay: 0.1s; }
-    .anim-2 { animation-delay: 0.25s; }
-    .anim-3 { animation-delay: 0.4s; }
-    .anim-4 { animation-delay: 0.55s; }
-
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 6rem 1.25rem 3rem; gap: 2rem; }
-      .hero-visual { display: none; }
-      .section { padding: 3.5rem 1.25rem; }
-      .services-grid { grid-template-columns: 1fr; }
-      .projects-section { padding: 3.5rem 1.25rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .process-grid { grid-template-columns: 1fr 1fr; }
-      .stats-inner { grid-template-columns: 1fr; gap: 1.5rem; }
-      .contact-section { padding: 3.5rem 1.25rem; }
-      footer { flex-direction: column; text-align: center; }
-    }
-
-    /* GALERÍA DE CAPTURAS */
-    .gallery-section { background: var(--blue-900); background-image: radial-gradient(circle at 15% 0%, rgba(58,130,212,.35), transparent 45%), radial-gradient(circle at 90% 100%, rgba(26,95,173,.45), transparent 50%); padding: 5rem 2.5rem; color: var(--white); }
-    .gallery-inner { max-width: 1100px; margin: 0 auto; }
-    .gallery-section .section-label { color: var(--blue-200); font-family: 'JetBrains Mono', monospace; }
-    .gallery-section .section-title { color: var(--white); }
-    .gallery-section .section-title em { color: var(--blue-200); }
-    .gallery-section .section-sub { color: var(--blue-100); }
-    .gallery-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 2rem 0 1.5rem; }
-    .gallery-filter { font: 500 14px 'DM Sans', sans-serif; color: var(--blue-100); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.18); padding: 8px 16px; border-radius: 999px; cursor: pointer; transition: all .2s; }
-    .gallery-filter:hover { background: rgba(255,255,255,.12); color: var(--white); }
-    .gallery-filter.active { background: var(--white); color: var(--blue-800); border-color: var(--white); }
-    .mosaic { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 92px; grid-auto-flow: dense; gap: 14px; }
-    .tile { position: relative; overflow: hidden; border-radius: var(--radius-lg); background: #0b1830; border: 1px solid rgba(255,255,255,.12); cursor: zoom-in; box-shadow: 0 10px 30px rgba(0,0,0,.25); transition: transform .3s, box-shadow .3s, opacity .3s; }
-    .tile img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .6s ease; }
-    .tile:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.4); }
-    .tile:hover img { transform: scale(1.04); }
-    .tile.big { grid-column: span 4; grid-row: span 4; }
-    .tile.wide { grid-column: span 3; grid-row: span 3; }
-    .tile.tall { grid-column: span 2; grid-row: span 4; }
-    .tile figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 56px 14px 12px; background: linear-gradient(rgba(4,16,38,0), rgba(4,16,38,.88) 45%, rgba(4,16,38,.97)); font-size: 13px; line-height: 1.4; color: var(--white); }
-    .tile .tile-tag { display: inline-block; font: 700 11px 'JetBrains Mono', monospace; letter-spacing: .04em; color: var(--blue-800); background: var(--blue-200); padding: 2px 8px; border-radius: 6px; margin-bottom: 6px; }
-    .tile.hidden { display: none; }
-    .mosaic:not(.expanded) .tile.extra { display: none; }
-    .gallery-more-wrap { text-align: center; margin-top: 1.75rem; }
-    .gallery-more { font: 500 15px 'DM Sans', sans-serif; color: var(--blue-800); background: var(--white); border: none; padding: 12px 26px; border-radius: var(--radius-md); cursor: pointer; transition: transform .15s; }
-    .gallery-more:hover { transform: translateY(-2px); }
-    .gallery-note { margin-top: 1.25rem; font-size: 13px; color: var(--blue-200); }
-    .lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(3,10,24,.94); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 2rem 4rem; }
-    .lightbox.open { display: flex; }
-    .lightbox img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-md); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
-    .lightbox p { color: var(--blue-100); margin-top: 1rem; font-size: 15px; text-align: center; }
-    .lb-btn { position: absolute; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); color: #fff; width: 48px; height: 48px; border-radius: 50%; font-size: 22px; cursor: pointer; }
-    .lb-btn:hover { background: rgba(255,255,255,.2); }
-    .lb-close { top: 20px; right: 20px; } .lb-prev { left: 16px; top: 50%; } .lb-next { right: 16px; top: 50%; }
-    @media (max-width: 768px) {
-      .gallery-section { padding: 3.5rem 1.25rem; }
-      .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 90px; gap: 10px; }
-      .tile.big, .tile.wide { grid-column: span 2; grid-row: span 2; }
-      .tile.tall { grid-column: span 1; grid-row: span 4; }
-      .tile figcaption { font-size: 12px; padding: 30px 10px 10px; }
-      .lightbox { padding: 1rem; }
-      .lb-prev, .lb-next { top: auto; bottom: 20px; }
-      .lb-prev { left: calc(50% - 60px); } .lb-next { right: calc(50% - 60px); }
-    }
-
-    /* OFERTA HERO */
-    .hero-offer { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 1.25rem; font-size: 14px; color: var(--gray-600); }
-    .hero-offer li { display: flex; align-items: center; gap: 6px; }
-    .hero-offer li::before { content: '✓'; color: #16a34a; font-weight: 700; }
-    .hero-offer b { color: var(--gray-800); font-weight: 600; }
-    /* CLIENTES */
-    .clientes-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; margin-top: 2.5rem; }
-    .cliente-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.5rem; }
-    .cliente-card p { font-size: 14px; color: var(--gray-600); line-height: 1.6; margin-top: 1rem; }
-    .cliente-card .testimonio-avatar { width: 56px; height: 56px; font-size: 15px; }
-    .cliente-logo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gray-200); background: #fff; flex-shrink: 0; }
-    /* FUNDADOR */
-    .founder-section { background: var(--white); }
-    .founder-inner { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: center; padding-top: 4rem; padding-bottom: 4rem; }
-    .founder-photo { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 4px solid var(--blue-100); box-shadow: 0 12px 30px rgba(26,95,173,.18); }
-    .founder-role { font-size: 15px; font-weight: 600; color: var(--blue-600); margin: -0.5rem 0 1rem; }
-    .founder-bio { font-size: 15px; color: var(--gray-600); line-height: 1.7; max-width: 640px; margin-bottom: 1.25rem; }
-    .founder-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
-    .founder-tags li { font-size: 13px; color: var(--blue-800); background: var(--blue-50); border: 1px solid var(--blue-100); padding: 5px 12px; border-radius: 999px; }
-    .btn-linkedin { display: inline-flex; align-items: center; gap: 8px; background: #0a66c2; color: #fff; text-decoration: none; padding: 11px 22px; border-radius: var(--radius-md); font-size: 15px; font-weight: 500; transition: transform .15s, background .2s; }
-    .btn-linkedin:hover { background: #084e96; transform: translateY(-2px); }
-    .contact-section .section-title em, .sectors-section .section-title em { color: var(--blue-200); }
-    @media (max-width: 900px) { .clientes-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-    @media (max-width: 768px) {
-      .sectors-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
-      .sector-card { padding: 1rem; gap: 10px; min-width: 0; }
-      .sector-icon { font-size: 1.4rem; }
-      .sector-card span { font-size: 13px; overflow-wrap: anywhere; }
-      .founder-inner { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
-      .founder-photo { margin: 0 auto; width: 160px; height: 160px; }
-      .founder-bio { margin-left: auto; margin-right: auto; }
-      .founder-tags { justify-content: center; }
-    }
-    @media (max-width: 520px) { .clientes-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 768px) { footer { padding-left: 1.25rem; padding-right: 1.25rem; gap: 1rem; } .footer-links { flex-wrap: wrap; justify-content: center; gap: .6rem 1.25rem; } }
-  </style>
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .menu a:not(.btn) { display: none; }
+    .hero-sub { grid-template-columns: 1fr; gap: 24px; }
+    .app-cuerpo { grid-template-columns: 1fr; }
+    .resumen { border-left: 0; border-top: 1px solid var(--linea); flex-direction: row; flex-wrap: wrap; }
+    .resumen > div { flex: 1 1 120px; }
+    .app-tabs { display: none; }
+    .producto, .producto.invertido { grid-template-columns: 1fr; gap: 28px; }
+    .producto.invertido .producto-texto { order: 0; }
+    .otros { grid-template-columns: 1fr 1fr; }
+    .clientes { grid-template-columns: 1fr 1fr; }
+    .pasos { grid-template-columns: 1fr 1fr; gap: 36px 0; }
+    .garantia { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    .envoltura { padding: 0 20px; }
+    .hero { padding-top: 28px; }
+    section.bloque { padding: 76px 0; }
+    .libro-fila { grid-template-columns: 1fr; gap: 6px; }
+    .libro-fila.cabeza { display: none; }
+    .tabla th:nth-child(3), .tabla td:nth-child(3) { display: none; }
+    .barra-stock { width: 90px; }
+    .linea2 { display: inline; white-space: normal; }
+    .hero h1 { min-height: 3.1em; }
+    .tabla th, .tabla td { padding-left: 16px; padding-right: 16px; }
+    .otros, .clientes, .pasos { grid-template-columns: 1fr; }
+    .fundador { grid-template-columns: 1fr; gap: 24px; }
+    .fundador img { width: 140px; height: 140px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .negocio { animation: none; }
+    .app-cuerpo, .app-cuerpo.cambiando { transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo"><img src="assets/softgest-icon.svg" alt="" class="brand-icon" width="30" height="30" /><strong class="wm">soft<span>gest</span></strong></div>
-  <ul class="nav-links">
-    <li><a href="#porque">¿Por qué nosotros?</a></li>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="#galeria">Galería</a></li>
-    <li><a href="#proceso">Proceso</a></li>
-    <li><a href="#faq">FAQ</a></li>
-  </ul>
-  <a href="https://wa.me/573027132640" target="_blank" class="nav-cta">Hablemos →</a>
-</nav>
+<header class="envoltura barra">
+  <a class="logo" href="#"><img src="assets/softgest-icon.svg" alt="" /><span class="logo-txt">soft<span>gest</span></span></a>
+  <nav class="menu" aria-label="Principal">
+    <a href="#servicios">Qué resolvemos</a>
+    <a href="#proyectos">Apps</a>
+    <a href="#clientes">Clientes</a>
+    <a href="#proceso">Cómo trabajamos</a>
+    <a class="btn btn-wa btn-sm" href="https://wa.me/573027132640?text=Hola,%20quiero%20la%20demo%20gratis%20de%2015%20d%C3%ADas">Escríbenos</a>
+  </nav>
+</header>
 
-<!-- HERO -->
-<section style="padding-top: 0;">
-  <div class="hero">
-    <div>
-      <div class="hero-badge anim anim-1">Desarrollo a medida · Colombia</div>
-      <h1 class="anim anim-2">Sistemas digitales que <em>transforman</em> tu empresa</h1>
-      <p class="anim anim-3">Construimos aplicaciones web a medida para gestión de inventarios, facturación DIAN, préstamos, logística y más. Rápidas, económicas y listas para usar.</p>
-      <div class="hero-btns anim anim-4">
-        <a href="https://wa.me/573027132640?text=Hola,%20quiero%20la%20demo%20gratis%20de%2015%20d%C3%ADas" target="_blank" class="btn-primary">
-          💬 Pide tu demo gratis
+<main>
+<section class="hero">
+  <div class="envoltura">
+    <h1>Una app hecha para <span class="linea2">tu <span class="negocio" id="negocio">peletería</span></span></h1>
+
+    <div class="hero-sub">
+      <p>Inventario, ventas, costos y ganancias en una sola app, armada con <strong>los productos y la forma de trabajar de tu negocio</strong>. Si ya llevas todo en Excel, pasamos tus datos para que no empieces de cero.</p>
+      <div class="hero-cta">
+        <a class="btn btn-wa" href="https://wa.me/573027132640?text=Hola,%20quiero%20la%20demo%20gratis%20de%2015%20d%C3%ADas">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+          Pide tu demo gratis
         </a>
-        <a href="#proyectos" class="btn-outline">Ver proyectos</a>
+        <small>Pago único desde $200.000. Pruébala 15 días antes de pagar.</small>
       </div>
-      <ul class="hero-offer anim anim-4">
-        <li><b>Pago único</b> desde $200.000</li>
-        <li><b>Demo gratis</b> por 15 días</li>
-        <li><b>Soporte</b> permanente</li>
-      </ul>
     </div>
-    <div class="hero-visual anim anim-3">
-      <div class="mock-bar">
-        <div class="mock-dot" style="background:#ef4444;"></div>
-        <div class="mock-dot" style="background:#f59e0b;"></div>
-        <div class="mock-dot" style="background:#22c55e;"></div>
-        <span class="mock-title">SoftGest — Panel de control</span>
+
+    <div class="selector" role="group" aria-label="Elige tu tipo de negocio">
+      <span class="selector-titulo">Mira cómo se vería en:</span>
+      <button class="chip" data-k="peleteria" aria-pressed="true">Peletería</button>
+      <button class="chip" data-k="ropa" aria-pressed="false">Tienda de ropa</button>
+      <button class="chip" data-k="vikingos" aria-pressed="false">Fábrica de vikingos</button>
+      <button class="chip" data-k="motos" aria-pressed="false">Repuestos de motos</button>
+      <button class="chip" data-k="drogueria" aria-pressed="false">Droguería</button>
+      <button class="chip" data-k="calzado" aria-pressed="false">Fábrica de calzado</button>
+    </div>
+
+    <div class="app" aria-live="polite">
+      <div class="app-cabeza">
+        <div class="app-nombre"><i id="app-ini">C</i><span id="app-titulo">Cueros del Norte</span></div>
+        <div class="app-tabs"><span>Inventario</span><span>Ventas</span><span>Ganancias</span><span>Reportes</span></div>
       </div>
-      <div class="mock-cards">
-        <div class="mock-card">
-          <div class="mock-card-label">Productos en stock</div>
-          <div class="mock-card-value">1,284</div>
-          <div class="mock-card-sub">↑ 12% este mes</div>
-        </div>
-        <div class="mock-card">
-          <div class="mock-card-label">Facturas activas</div>
-          <div class="mock-card-value">47</div>
-          <div class="mock-card-sub">3 por vencer</div>
-        </div>
-      </div>
-      <div class="mock-row">
-        <span class="mock-row-name">Inventario tienda Norte</span>
-        <span class="mock-pill pill-green">Al día</span>
-      </div>
-      <div class="mock-row">
-        <span class="mock-row-name">Factura #2024-089 DIAN</span>
-        <span class="mock-pill pill-blue">Procesada</span>
-      </div>
-      <div class="mock-row">
-        <span class="mock-row-name">Traslado mercancía sede Sur</span>
-        <span class="mock-pill pill-amber">Pendiente</span>
+      <div class="app-cuerpo" id="app-cuerpo">
+        <table class="tabla">
+          <thead><tr><th>Producto</th><th>Existencia</th><th class="num">Precio</th><th>Estado</th></tr></thead>
+          <tbody id="filas"></tbody>
+        </table>
+        <aside class="resumen" id="resumen"></aside>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stats-inner">
+<section class="bloque blanco" id="servicios">
+  <div class="envoltura">
+    <h2>Empezamos por lo que hoy te quita plata</h2>
+    <p class="intro">No vendemos módulos sueltos. Revisamos qué está fallando en tu negocio y armamos la app alrededor de eso.</p>
+    <div class="libro" role="table">
+      <div class="libro-fila cabeza" role="row"><p role="columnheader">Si hoy te pasa esto</p><p role="columnheader">Esto es lo que hacemos</p></div>
+      <div class="libro-fila" role="row"><p role="cell">No sabes cuánta mercancía tienes ni dónde está</p><p role="cell"><b>Control de inventario</b> en tiempo real, por bodega o sede, con historial de quién movió qué y cuándo.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Vendes, pero no sabes cuánto te queda de ganancia</p><p role="cell"><b>Ventas, costos y ganancias</b> por día, semana o mes, con descarga a Excel.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Las facturas electrónicas se pierden en el correo</p><p role="cell"><b>Facturación DIAN</b>: tus facturas llegan solas desde Gmail y se cruzan contra el reporte de la DIAN.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Los clientes preguntan y nadie les hace seguimiento</p><p role="cell"><b>CRM</b> con el historial de cada cliente y alertas para volver a llamarlo.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">La nómina y la caja se cuadran a mano cada mes</p><p role="cell"><b>Nómina y tesorería</b>: liquidación con la norma colombiana, cuentas por pagar y por cobrar.</p></div>
+      <div class="libro-fila" role="row"><p role="cell">Tu negocio casi no aparece en internet</p><p role="cell"><b>Página web y manejo de redes</b> en Facebook e Instagram, con campañas pensadas para tu ciudad.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="proyectos">
+  <div class="envoltura">
+    <h2>Apps que ya están trabajando en negocios reales</h2>
+    <p class="intro">Estas son capturas de las apps funcionando, con datos de demostración para proteger la información de nuestros clientes.</p>
+
+    <article class="producto">
+      <div class="producto-texto">
+        <div class="producto-marca"><img src="assets/stocka-icon.png" alt="" /><h3>Stocka</h3></div>
+        <p>Inventario multiusuario para comercios, repuestos y bodegas. Nació en una operación real de 12 bodegas.</p>
+        <ul>
+          <li>Búsqueda instantánea con existencias por bodega</li>
+          <li>Ingresos, egresos y traslados con consecutivo automático</li>
+          <li>Kardex completo de cada producto</li>
+        </ul>
+        <a class="enlace" href="stocka.html">Conoce Stocka</a>
+      </div>
+      <img class="captura" src="assets/capturas/stocka-busqueda.webp" alt="Stocka: búsqueda de productos con existencias en bodega y almacén" />
+    </article>
+
+    <article class="producto invertido">
+      <div class="producto-texto">
+        <div class="producto-marca"><img src="assets/electra-icon.png" alt="" /><h3>Electra</h3></div>
+        <p>Tus facturas electrónicas organizadas sin buscar en el correo ni cruzar reportes a mano.</p>
+        <ul>
+          <li>Sincronización automática desde Gmail</li>
+          <li>Cruce contra el reporte de la DIAN</li>
+          <li>Estado contable de cada factura por etapas</li>
+        </ul>
+        <a class="enlace" href="electra.html">Conoce Electra</a>
+      </div>
+      <img class="captura" src="assets/capturas/electra-cruce.webp" alt="Electra: cruce automático de facturas contra el reporte de la DIAN" />
+    </article>
+
+    <div class="otros">
+      <h3>También en el portafolio</h3>
+      <div><b>Trazo</b><span>Traslados entre sedes, con devoluciones y soportes.</span></div>
+      <div><b>Nexo</b><span>CRM para hacer seguimiento a cada cliente.</span></div>
+      <div><b>NomiCo</b><span>Nómina con prestaciones y comprobantes.</span></div>
+      <div><b>CajaFlow</b><span>Flujo de caja, cuentas por pagar y por cobrar.</span></div>
+      <div><b>TaskFlow</b><span>Tareas del equipo en tablero Kanban.</span></div>
+      <div><b>Pulso</b><span>Tableros de datos para decidir con números.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque blanco" id="clientes">
+  <div class="envoltura">
+    <h2>Negocios que ya trabajan con SoftGest</h2>
+    <div class="clientes">
+      <div class="cliente"><img src="assets/clientes/vikingos-juanchis.webp" alt="Logo de Vikingos Juanchis" /><b>Vikingos Juanchis</b><small>Fábrica de vikingos</small><p>App de producción, costos y ventas con los productos más vendidos.</p></div>
+      <div class="cliente"><img src="assets/clientes/plomeria-rios.webp" alt="Logo de Plomería Rios Junior" /><b>Plomería Rios Junior</b><small>Servicios de plomería</small><p>Contenido con IA y campañas en Facebook e Instagram.</p></div>
+      <div class="cliente"><img src="assets/clientes/plomeria-antioquia.webp" alt="Logo de Plomería Antioquia" /><b>Plomería Antioquia</b><small>Servicios de plomería</small><p>Sitio web con contacto directo por WhatsApp.</p></div>
+      <div class="cliente"><img src="assets/clientes/jk2m-repuestos.webp" alt="Logo de JK2M Repuestos" /><b>JK2M Repuestos</b><small>Repuestos para motos</small><p>Inventario en Stocka y tienda online con pedidos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="proceso">
+  <div class="envoltura">
+    <h2>Así pasamos tu negocio a una app</h2>
+    <div class="pasos">
+      <div class="paso"><b>Conversamos</b><p>En Cúcuta te visitamos con cita. En otras ciudades, por videollamada.</p></div>
+      <div class="paso"><b>Te mostramos la demo</b><p>Una primera versión con tus productos, lista en días.</p></div>
+      <div class="paso"><b>La pruebas 15 días</b><p>La usas en tu día a día y ajustamos lo que haga falta.</p></div>
+      <div class="paso"><b>Pagas y seguimos contigo</b><p>Pago único y soporte permanente, sin mensualidades.</p></div>
+    </div>
+    <div class="garantia">
+      <p>No pagas nada hasta que la app esté a punto.<span>Precios desde $200.000, ajustados al presupuesto de cada negocio.</span></p>
+      <a class="btn btn-wa" href="https://wa.me/573027132640?text=Hola,%20quiero%20la%20demo%20gratis%20de%2015%20d%C3%ADas">Pide tu demo gratis</a>
+    </div>
+  </div>
+</section>
+
+<section class="bloque blanco">
+  <div class="envoltura fundador">
+    <img src="assets/roldan-garcia.webp" alt="Roldán García, fundador de SoftGest" />
     <div>
-      <span class="stat-num">4+</span>
-      <div class="stat-label">Aplicaciones desplegadas</div>
-    </div>
-    <div>
-      <span class="stat-num">100%</span>
-      <div class="stat-label">Soluciones en producción real</div>
-    </div>
-    <div>
-      <span class="stat-num">&lt;24h</span>
-      <div class="stat-label">Tiempo de respuesta a cada solicitud</div>
+      <blockquote>Llevo más de 5 años contando mercancía en bodegas. Cada app de SoftGest nace de un problema que viví en una operación real.</blockquote>
+      <p class="firma"><b>Roldán García</b>, fundador. Administrador de Empresas y Tecnólogo en Análisis y Programación de Sistemas. <a href="https://www.linkedin.com/in/roldan-evelio-garcia-uribe-684234365">Ver perfil en LinkedIn</a></p>
     </div>
   </div>
-</div>
+</section>
 
-<!-- POR QUÉ ELEGIRNOS -->
-<div id="porque">
-  <div class="section">
-    <div class="section-label">Por qué elegirnos</div>
-    <h2 class="section-title">Ventajas que <em>marcan la diferencia</em></h2>
-    <p class="section-sub">No somos una empresa grande con procesos lentos. Somos un equipo ágil que entiende el negocio colombiano y entrega resultados reales.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">⚡</div>
-        <h4>Entrega rápida</h4>
-        <p>Primeras versiones funcionales en días, no en meses. Iteramos contigo desde el inicio para ajustar según tus necesidades reales.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">💸</div>
-        <h4>Sin costos de licencias</h4>
-        <p>Usamos tecnología de código abierto y servicios cloud económicos. Tu empresa no paga licencias costosas ni infraestructura cara.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🇨🇴</div>
-        <h4>Conocemos el mercado colombiano</h4>
-        <p>Experiencia real con normativa DIAN, procesos locales y las necesidades específicas de empresas colombianas de todos los tamaños.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🛠️</div>
-        <h4>Soporte post-entrega</h4>
-        <p>No desaparecemos cuando entregamos. Te acompañamos en el uso, los ajustes y el crecimiento de tu sistema a largo plazo.</p>
-      </div>
-    </div>
+<section class="cierre">
+  <div class="envoltura">
+    <p class="prompt" aria-hidden="true">&gt;_</p>
+    <h2>Cuéntanos cómo trabaja tu negocio</h2>
+    <p>Te respondemos por WhatsApp en menos de 24 horas con una propuesta sin costo.</p>
+    <a class="btn btn-wa" href="https://wa.me/573027132640?text=Hola,%20estoy%20interesado%20en%20una%20aplicaci%C3%B3n%20para%20mi%20empresa">Escribir al 302 713 2640</a>
   </div>
-</div>
+</section>
+</main>
 
-<!-- SECTORES -->
-<div class="sectors-section">
-  <div class="section" style="padding-top:3rem;padding-bottom:3rem;">
-    <div class="section-label">Sectores que atendemos</div>
-    <h2 class="section-title">Soluciones para <em>tu industria</em></h2>
-    <p class="section-sub">Hemos trabajado con empresas de distintos sectores. Si tu negocio maneja productos, clientes, empleados o dinero, tenemos algo para ti.</p>
-    <div class="sectors-grid">
-      <div class="sector-card"><div class="sector-icon">🏍️</div><span>Repuestos y accesorios para motos</span></div>
-      <div class="sector-card"><div class="sector-icon">👟</div><span>Fabricantes de calzado y ropa</span></div>
-      <div class="sector-card"><div class="sector-icon">💊</div><span>Farmacias y droguerías</span></div>
-      <div class="sector-card"><div class="sector-icon">🛒</div><span>Tiendas y pequeños supermercados</span></div>
-      <div class="sector-card"><div class="sector-icon">🏭</div><span>Empresas manufactureras</span></div>
-      <div class="sector-card"><div class="sector-icon">📦</div><span>Distribuidoras y mayoristas</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- SERVICIOS -->
-<div id="servicios">
-  <div class="section">
-    <div class="section-label">Servicios</div>
-    <h2 class="section-title">¿Qué podemos <em>construir</em> para ti?</h2>
-    <p class="section-sub">Desarrollamos sistemas web completos adaptados a las necesidades de tu negocio: tiendas, farmacias, comercios de repuestos, fabricantes de calzado y ropa, pequeños supermercados y más.</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon" style="background:#e8f1fb;">📦</div>
-        <h3>Control de inventario</h3>
-        <p>Deja de perder dinero por mercancía sin registrar, robos o errores en conteos. Ten visibilidad total de tu stock en todo momento.</p>
-        <ul>
-          <li>Sabe exactamente cuánto tienes y dónde en tiempo real</li>
-          <li>Evita quiebres de stock que te hacen perder ventas</li>
-          <li>Detecta diferencias y faltantes al instante</li>
-          <li>Historial completo de quién movió qué y cuándo</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#eaf3de;">🧾</div>
-        <h3>Facturación electrónica DIAN</h3>
-        <p>Cumple con la DIAN sin estrés. Olvídate de buscar facturas en el correo o cruzar reportes a mano en Excel.</p>
-        <ul>
-          <li>Nunca más pierdas una factura ni pagues impuestos de más</li>
-          <li>Detecta facturas duplicadas o con errores automáticamente</li>
-          <li>Ten el estado de cada factura en un solo lugar</li>
-          <li>Evita sanciones por inconsistencias con la DIAN</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#faeeda;">🚚</div>
-        <h3>Gestión de traslados entre sedes</h3>
-        <p>Controla qué sale, qué llega y qué se devuelve entre tus puntos de venta o bodegas, sin depender de papeles ni llamadas.</p>
-        <ul>
-          <li>Elimina pérdidas por traslados sin registro</li>
-          <li>Sabe en qué sede está cada producto en todo momento</li>
-          <li>Concilia entradas y devoluciones sin discrepancias</li>
-          <li>Soporte documental digital ante cualquier reclamo</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#EEEDFE;">📋</div>
-        <h3>Gestión de tareas y equipos</h3>
-        <p>Deja de perseguir a tu equipo para saber cómo van las cosas. Ten visibilidad real del avance de cada tarea sin reuniones innecesarias.</p>
-        <ul>
-          <li>Asigna, prioriza y haz seguimiento sin correos ni WhatsApp</li>
-          <li>Detecta cuellos de botella antes de que se conviertan en problemas</li>
-          <li>Tu equipo rinde más con objetivos claros y visibles</li>
-          <li>Reportes automáticos del avance sin pedirlos</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#fbeaf0;">📊</div>
-        <h3>Análisis de datos e inteligencia de negocio</h3>
-        <p>Deja de tomar decisiones basándote en intuición. Convierte los datos que ya tienes en información clara para actuar con seguridad.</p>
-        <ul>
-          <li>Identifica qué productos, clientes o zonas te generan más dinero</li>
-          <li>Anticipa tendencias antes de que afecten tu negocio</li>
-          <li>Dashboards actualizados para tomar decisiones en minutos</li>
-          <li>Detecta gastos innecesarios que hoy no ves</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#e8f8f0;">🤝</div>
-        <h3>CRM — Gestión de clientes</h3>
-        <p>Deja de perder clientes por falta de seguimiento. Centraliza toda la información comercial y vende más con el mismo equipo.</p>
-        <ul>
-          <li>Nunca olvides hacer seguimiento a un cliente potencial</li>
-          <li>Sabe en qué etapa está cada negociación</li>
-          <li>Mide el desempeño de tu fuerza de ventas con datos reales</li>
-          <li>Fideliza clientes con atención personalizada y oportuna</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#fff4e6;">👥</div>
-        <h3>Control y liquidación de nómina</h3>
-        <p>Elimina los errores en la nómina que generan conflictos con tu equipo y riesgos legales. Liquida en minutos, no en días.</p>
-        <ul>
-          <li>Evita errores costosos en prestaciones y deducciones</li>
-          <li>Reduce el tiempo de liquidación de días a minutos</li>
-          <li>Cumple con la normativa laboral colombiana sin complicaciones</li>
-          <li>Genera comprobantes de pago listos para entregar</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#e8f1fb;">💰</div>
-        <h3>Procesos de tesorería</h3>
-        <p>Sabe exactamente cuánto dinero tienes, cuánto debes y cuánto te deben. Toma decisiones financieras con información real y actualizada.</p>
-        <ul>
-          <li>Anticipa problemas de flujo de caja antes de que ocurran</li>
-          <li>Nunca pierdas el control de lo que debes y lo que te deben</li>
-          <li>Evita pagos duplicados o vencidos que dañan tu reputación</li>
-          <li>Cierra el mes contable sin traumatismos</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#eef2ff;">🔗</div>
-        <h3>Integración administrativa y contable</h3>
-        <p>Acaba con la doble digitación y los errores por datos inconsistentes entre áreas. Lo que ocurre en operaciones se refleja automáticamente en contabilidad.</p>
-        <ul>
-          <li>Elimina el reproceso entre operaciones y contabilidad</li>
-          <li>Reduce errores humanos que generan descuadres y auditorías</li>
-          <li>Cierra la contabilidad mensual más rápido y con menos estrés</li>
-          <li>Compatible con el software contable que ya usas</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#fdeaea;">📣</div>
-        <h3>Campañas en Facebook e Instagram</h3>
-        <p>Deja de invertir en publicidad a ciegas. Planificamos, creamos y acompañamos campañas que conectan con tu público y generan resultados medibles.</p>
-        <ul>
-          <li>Estrategia de campaña alineada a tus objetivos de negocio</li>
-          <li>Diseño de contenido y anuncios profesionales para cada plataforma</li>
-          <li>Segmentación de audiencia para llegar al cliente correcto</li>
-          <li>Seguimiento y optimización continua con reportes de resultados</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <div class="service-icon" style="background:#e1f5ee;">🔧</div>
-        <h3>Soluciones a medida</h3>
-        <p>¿Tienes un proceso específico que quieres sistematizar?</p>
-        <ul>
-          <li>Análisis de requerimientos</li>
-          <li>Prototipo rápido</li>
-          <li>Desarrollo e integración</li>
-          <li>Soporte y mantenimiento</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PROYECTOS -->
-<div id="proyectos" class="projects-section">
-  <div class="projects-inner">
-    <div class="section-label">Portafolio de productos</div>
-    <h2 class="section-title">Aplicaciones <em>en producción</em></h2>
-    <p class="section-sub">Estos son los sistemas que hemos desarrollado y que ya están funcionando con usuarios reales en empresas colombianas. Cada uno resuelve un problema concreto de gestión.</p>
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#e8f1fb;"><img src="assets/stocka-icon.png" alt="Stocka" style="width:26px;height:auto;display:block;" /></div>
-          <div>
-            <h3>Stocka — Control de inventario</h3>
-            <p>Control de stock en tiempo real con roles, permisos y auditoría completa. Usado en comercios de repuestos, farmacias y tiendas.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Multiusuario</span>
-          <span class="feature-item">Auditoría</span>
-          <span class="feature-item">Carga CSV</span>
-          <span class="feature-item">Movimientos</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Flask</span>
-          <span class="project-tag">Supabase</span>
-          <span class="project-tag">Render</span>
-        </div>
-        <a href="stocka.html" style="font-size:13px; color:var(--blue-600); font-weight:500; text-decoration:none; display:inline-flex; align-items:center; gap:4px; margin-top:4px;">Ver más →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#eaf3de;"><img src="assets/electra-icon.png" alt="Electra" style="width:26px;height:auto;display:block;" /></div>
-          <div>
-            <h3>Electra — Facturación DIAN</h3>
-            <p>Gestión de facturas electrónicas con sincronización Gmail, cruce automático contra reportes DIAN y estados contables por etapas.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Gmail OAuth2</span>
-          <span class="feature-item">Cruce DIAN</span>
-          <span class="feature-item">Cron sync</span>
-          <span class="feature-item">CSV export</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">React</span>
-          <span class="project-tag">Node.js</span>
-          <span class="project-tag">Express</span>
-          <span class="project-tag">Supabase</span>
-        </div>
-        <a href="electra.html" style="font-size:13px; color:var(--blue-600); font-weight:500; text-decoration:none; display:inline-flex; align-items:center; gap:4px; margin-top:4px;">Ver más →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#faeeda;">🚚</div>
-          <div>
-            <h3>Trazo — Traslados entre sedes</h3>
-            <p>Trazabilidad de movimientos de productos entre sedes y puntos de venta, con cruces de devoluciones y soporte documental en nube.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Import Excel</span>
-          <span class="feature-item">Cruces</span>
-          <span class="feature-item">PDF adjuntos</span>
-          <span class="feature-item">Trazabilidad</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Flask</span>
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Supabase</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#EEEDFE;">📋</div>
-          <div>
-            <h3>TaskFlow — Gestión de tareas</h3>
-            <p>App Kanban para equipos con adjuntos en nube, historial de notas por tarea e informes automáticos por email.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Kanban</span>
-          <span class="feature-item">Adjuntos</span>
-          <span class="feature-item">Email reports</span>
-          <span class="feature-item">Multiusuario</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Flask</span>
-          <span class="project-tag">Supabase</span>
-          <span class="project-tag">Render</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#e8f8f0; font-size:26px;">🤝</div>
-          <div>
-            <h3>Nexo — CRM de clientes</h3>
-            <p>Centraliza el seguimiento comercial, el pipeline de ventas y el historial de cada cliente en una sola plataforma adaptada a tu proceso de venta.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Pipeline ventas</span>
-          <span class="feature-item">Seguimiento</span>
-          <span class="feature-item">Historial</span>
-          <span class="feature-item">Alertas</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">React</span>
-          <span class="project-tag">Node.js</span>
-          <span class="project-tag">Supabase</span>
-          <span class="project-tag">Render</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#fff4e6; font-size:26px;">👥</div>
-          <div>
-            <h3>NomiCo — Liquidación de nómina</h3>
-            <p>Liquida la nómina de tu empresa en minutos, con cumplimiento de la normativa laboral colombiana y generación automática de comprobantes de pago.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Prestaciones</span>
-          <span class="feature-item">Horas extras</span>
-          <span class="feature-item">Comprobantes</span>
-          <span class="feature-item">Export contable</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Flask</span>
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Supabase</span>
-          <span class="project-tag">Render</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#e8f1fb; font-size:26px;">💰</div>
-          <div>
-            <h3>CajaFlow — Tesorería</h3>
-            <p>Controla el flujo de caja, cuentas por pagar y cobrar, y cierra el mes contable sin traumatismos. Visibilidad financiera total en tiempo real.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Flujo de caja</span>
-          <span class="feature-item">CxP / CxC</span>
-          <span class="feature-item">Conciliación</span>
-          <span class="feature-item">Proyecciones</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Flask</span>
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Supabase</span>
-          <span class="project-tag">Render</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon" style="background:#fbeaf0; font-size:26px;">📊</div>
-          <div>
-            <h3>Pulso — Análisis de datos</h3>
-            <p>Convierte los datos de tu empresa en dashboards claros y accionables. Toma decisiones con información real, no con intuición.</p>
-          </div>
-        </div>
-        <div class="project-feature">
-          <span class="feature-item">Power BI</span>
-          <span class="feature-item">Dashboards</span>
-          <span class="feature-item">Python</span>
-          <span class="feature-item">MySQL</span>
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">Power BI</span>
-          <span class="project-tag">Python</span>
-          <span class="project-tag">MySQL</span>
-          <span class="project-tag">Excel</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- GALERÍA DE CAPTURAS -->
-<div id="galeria" class="gallery-section">
-  <div class="gallery-inner">
-    <div class="section-label">&gt; así se ven por dentro</div>
-    <h2 class="section-title">Nuestras apps <em>funcionando</em></h2>
-    <p class="section-sub">Capturas reales de las aplicaciones: inventarios, facturación DIAN, apps a la medida y páginas web. Haz clic en cualquier imagen para verla en grande.</p>
-    <div class="gallery-filters" role="tablist">
-      <button class="gallery-filter active" data-filter="all">Todas</button>
-      <button class="gallery-filter" data-filter="stocka">Stocka</button>
-      <button class="gallery-filter" data-filter="electra">Electra</button>
-      <button class="gallery-filter" data-filter="medida">Apps a la medida</button>
-      <button class="gallery-filter" data-filter="web">Páginas web</button>
-    </div>
-    <div class="mosaic">
-      <figure class="tile big" data-cat="stocka">
-        <img src="assets/capturas/stocka-busqueda.webp" alt="Stocka: Búsqueda instantánea con existencias en bodega y almacén" loading="lazy" />
-        <figcaption><span class="tile-tag">Stocka</span><br />Búsqueda instantánea con existencias en bodega y almacén</figcaption>
-      </figure>
-      <figure class="tile tall" data-cat="medida">
-        <img src="assets/capturas/medida-venta.webp" alt="A la medida: Punto de venta rápido: toca el producto y se suma a la venta" loading="lazy" />
-        <figcaption><span class="tile-tag">A la medida</span><br />Punto de venta rápido: toca el producto y se suma a la venta</figcaption>
-      </figure>
-      <figure class="tile wide" data-cat="electra">
-        <img src="assets/capturas/electra-facturas.webp" alt="Electra: Facturas electrónicas sincronizadas desde Gmail" loading="lazy" />
-        <figcaption><span class="tile-tag">Electra</span><br />Facturas electrónicas sincronizadas desde Gmail</figcaption>
-      </figure>
-      <figure class="tile wide" data-cat="stocka">
-        <img src="assets/capturas/stocka-movimientos.webp" alt="Stocka: Ingresos, egresos y traslados con consecutivo automático" loading="lazy" />
-        <figcaption><span class="tile-tag">Stocka</span><br />Ingresos, egresos y traslados con consecutivo automático</figcaption>
-      </figure>
-      <figure class="tile tall extra" data-cat="web">
-        <img src="assets/capturas/web-inicio.webp" alt="Páginas web: Sitio web para empresa de plomería en Antioquia" loading="lazy" />
-        <figcaption><span class="tile-tag">Páginas web</span><br />Sitio web para empresa de plomería en Antioquia</figcaption>
-      </figure>
-      <figure class="tile tall extra" data-cat="medida">
-        <img src="assets/capturas/medida-resumen.webp" alt="A la medida: Resumen de ventas, costos y ganancia neta del negocio" loading="lazy" />
-        <figcaption><span class="tile-tag">A la medida</span><br />Resumen de ventas, costos y ganancia neta del negocio</figcaption>
-      </figure>
-      <figure class="tile tall extra" data-cat="medida">
-        <img src="assets/capturas/medida-reportes.webp" alt="A la medida: Reportes por día, semana o mes con descarga a Excel" loading="lazy" />
-        <figcaption><span class="tile-tag">A la medida</span><br />Reportes por día, semana o mes con descarga a Excel</figcaption>
-      </figure>
-      <figure class="tile wide extra" data-cat="electra">
-        <img src="assets/capturas/electra-detalle.webp" alt="Electra: Detalle de cada factura: proveedor, CUFE y totales" loading="lazy" />
-        <figcaption><span class="tile-tag">Electra</span><br />Detalle de cada factura: proveedor, CUFE y totales</figcaption>
-      </figure>
-      <figure class="tile wide extra" data-cat="electra">
-        <img src="assets/capturas/electra-cruce.webp" alt="Electra: Cruce automático contra el reporte de la DIAN" loading="lazy" />
-        <figcaption><span class="tile-tag">Electra</span><br />Cruce automático contra el reporte de la DIAN</figcaption>
-      </figure>
-      <figure class="tile tall extra" data-cat="web">
-        <img src="assets/capturas/web-servicios.webp" alt="Páginas web: Servicios con botones directos a WhatsApp" loading="lazy" />
-        <figcaption><span class="tile-tag">Páginas web</span><br />Servicios con botones directos a WhatsApp</figcaption>
-      </figure>
-      <figure class="tile big extra" data-cat="stocka">
-        <img src="assets/capturas/stocka-detalle.webp" alt="Stocka: Detalle de cada movimiento: quién, cuándo y qué productos" loading="lazy" />
-        <figcaption><span class="tile-tag">Stocka</span><br />Detalle de cada movimiento: quién, cuándo y qué productos</figcaption>
-      </figure>
-    </div>
-    <div class="gallery-more-wrap"><button class="gallery-more" id="gallery-more">Ver más capturas ↓</button></div>
-    <p class="gallery-note">* Capturas tomadas con datos de demostración para proteger la información de nuestros clientes.</p>
-  </div>
-</div>
-
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lb-btn lb-close" aria-label="Cerrar">&times;</button>
-  <button class="lb-btn lb-prev" aria-label="Anterior">&#8249;</button>
-  <img id="lb-img" alt="" />
-  <p id="lb-cap"></p>
-  <button class="lb-btn lb-next" aria-label="Siguiente">&#8250;</button>
-</div>
-
-<!-- PROCESO -->
-<div id="proceso">
-  <div class="section">
-    <div class="section-label">Cómo trabajamos</div>
-    <h2 class="section-title">Un proceso <em>simple</em> y directo</h2>
-    <p class="section-sub">Sin burocracia. Nos cuentas qué necesitas y en poco tiempo tienes tu aplicación funcionando.</p>
-    <div class="process-grid">
-      <div class="process-step">
-        <span class="step-num">01</span>
-        <h4>Conversamos</h4>
-        <p>Me describes el problema o proceso que quieres sistematizar. Sin tecnicismos.</p>
-      </div>
-      <div class="process-step">
-        <span class="step-num">02</span>
-        <h4>Prototipo rápido</h4>
-        <p>Te mostramos una primera versión funcional para validar que vamos por el camino correcto.</p>
-      </div>
-      <div class="process-step">
-        <span class="step-num">03</span>
-        <h4>Desarrollo completo</h4>
-        <p>Construimos el sistema completo con todos los módulos y funcionalidades acordadas.</p>
-      </div>
-      <div class="process-step">
-        <span class="step-num">04</span>
-        <h4>Entrega y soporte</h4>
-        <p>La aplicación queda desplegada y te acompañamos durante el uso y ajustes posteriores.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TECNOLOGÍAS -->
-<div id="tecnologias" style="background: var(--gray-50); padding: 4rem 0;">
-  <div class="section" style="padding-top: 0; padding-bottom: 0;">
-    <div class="section-label">Tecnologías</div>
-    <h2 class="section-title">Stack moderno y <em>económico</em></h2>
-    <p class="section-sub">Uso herramientas modernas que permiten desplegar aplicaciones robustas sin costos elevados de infraestructura.</p>
-    <div class="tech-grid">
-      <div class="tech-pill"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#F2C811" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm1 13h2v-5H6v5zm3.5 0h2V7h-2v9zm3.5 0h2v-7h-2v7zm3.5 0h2v-3h-2v3z"/></svg>Power BI</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/mysql/4479A1" width="18" height="18" alt="MySQL"/>MySQL</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/python/3776AB" width="18" height="18" alt="Python"/>Python</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/flask/000000" width="18" height="18" alt="Flask"/>Flask</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/react/61DAFB" width="18" height="18" alt="React"/>React</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/nodedotjs/339933" width="18" height="18" alt="Node.js"/>Node.js</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/postgresql/336791" width="18" height="18" alt="PostgreSQL"/>PostgreSQL</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/render/46E3B7" width="18" height="18" alt="Render"/>Render</div>
-      <div class="tech-pill"><img src="https://cdn.simpleicons.org/github/181717" width="18" height="18" alt="GitHub"/>GitHub</div>
-      <div class="tech-pill"><svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#217346" d="M21.17 3H7.83C6.82 3 6 3.82 6 4.83V7H2v13h4v2.17C6 23.18 6.82 24 7.83 24h13.34C22.18 24 23 23.18 23 22.17V4.83C23 3.82 22.18 3 21.17 3zM6 18H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V8h2v2zm15 12H8V4h13v18zM10 8l2.5 4L10 16h2l1.5-2.5L15 16h2l-2.5-4L17 8h-2l-1.5 2.5L12 8h-2z"/></svg>Excel</div>
-    </div>
-  </div>
-</div>
-
-<!-- CLIENTES -->
-<div class="testimonios-section" id="clientes">
-  <div class="section" style="padding-top:4rem;padding-bottom:4rem;">
-    <div class="section-label">Clientes</div>
-    <h2 class="section-title">Negocios que ya <em>confían</em> en nosotros</h2>
-    <p class="section-sub">Estos son algunos de nuestros clientes: emprendimientos y empresas reales que hoy trabajan con soluciones de SoftGest.</p>
-    <div class="clientes-grid">
-      <div class="cliente-card">
-        <div class="testimonio-autor">
-          <img src="assets/clientes/vikingos-juanchis.webp" alt="Logo Vikingos Juanchis" class="cliente-logo" width="56" height="56" loading="lazy" />
-          <div><strong>Vikingos Juanchis</strong><span>Fábrica de vikingos (bolis)</span></div>
-        </div>
-        <p>App de producción, costos y ventas: insumos, mano de obra, ganancias y productos más vendidos.</p>
-      </div>
-      <div class="cliente-card">
-        <div class="testimonio-autor">
-          <img src="assets/clientes/plomeria-rios.webp" alt="Logo Plomería Rios Junior" class="cliente-logo" width="56" height="56" loading="lazy" />
-          <div><strong>Plomería Rios Junior</strong><span>Servicios de plomería</span></div>
-        </div>
-        <p>Agente de contenido con IA que publica tips, promociones y trabajos, y campañas publicitarias en Facebook e Instagram.</p>
-      </div>
-      <div class="cliente-card">
-        <div class="testimonio-autor">
-          <img src="assets/clientes/plomeria-antioquia.webp" alt="Logo Plomería Antioquia" class="cliente-logo" width="56" height="56" loading="lazy" />
-          <div><strong>Plomería Antioquia</strong><span>Servicios de plomería</span></div>
-        </div>
-        <p>Sitio web profesional "Tu hogar en buenas manos" con contacto directo por WhatsApp.</p>
-      </div>
-      <div class="cliente-card">
-        <div class="testimonio-autor">
-          <img src="assets/clientes/jk2m-repuestos.webp" alt="Logo JK2M Repuestos" class="cliente-logo" width="56" height="56" loading="lazy" />
-          <div><strong>JK2M Repuestos</strong><span>Repuestos para motos</span></div>
-        </div>
-        <p>Usan Stocka para controlar su inventario y tienen su tienda online de repuestos con catálogo y pedidos con comprobante.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FUNDADOR -->
-<div class="founder-section" id="fundador">
-  <div class="section founder-inner">
-    <img src="assets/roldan-garcia.webp" alt="Roldán García, fundador de SoftGest" class="founder-photo" width="200" height="200" loading="lazy" />
-    <div>
-      <div class="section-label">Quién está detrás</div>
-      <h2 class="section-title">Roldán <em>García</em></h2>
-      <p class="founder-role">Fundador y desarrollador de SoftGest</p>
-      <p class="founder-bio">Administrador de Empresas y Tecnólogo en Análisis y Programación de Sistemas, con más de 5 años en logística, inventarios y gestión de bodegas en los sectores salud, manufactura de calzado y humanitario. SoftGest nace de esa experiencia: herramientas que resuelven problemas reales del día a día de un negocio.</p>
-      <ul class="founder-tags">
-        <li>+5 años en inventarios y logística</li>
-        <li>Control multibodega (12 bodegas)</li>
-        <li>Excel, Power Query y Power BI</li>
-        <li>Desarrollo web full-stack</li>
-      </ul>
-      <a href="https://www.linkedin.com/in/roldan-evelio-garcia-uribe-684234365" target="_blank" rel="noopener" class="btn-linkedin"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Ver perfil en LinkedIn</a>
-    </div>
-  </div>
-</div>
-
-<!-- FAQ -->
-<div class="faq-section" id="faq">
-  <div class="section" style="padding-top:4rem;padding-bottom:4rem;">
-    <div class="section-label">Preguntas frecuentes</div>
-    <h2 class="section-title">Todo lo que necesitas <em>saber</em></h2>
-    <div class="faq-grid">
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿Cuánto tiempo tarda en estar lista mi aplicación?</div>
-        <div class="faq-a">Depende de la complejidad, pero una primera versión funcional generalmente está lista en 2 dias a 3 semanas. Proyectos más completos con múltiples módulos pueden tomar entre 4 y 8 semanas.</div>
-      </div>
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿Cuánto cuesta desarrollar un sistema?</div>
-        <div class="faq-a">El costo varía según el alcance. Manejamos presupuestos desde proyectos pequeños hasta soluciones completas. Contáctanos para una cotización sin compromiso adaptada a tu necesidad.</div>
-      </div>
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿El sistema funciona desde el celular?</div>
-        <div class="faq-a">Sí. Todas nuestras aplicaciones son responsivas, es decir, se adaptan automáticamente a celulares, tabletas y computadores sin necesidad de instalar nada.</div>
-      </div>
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿Qué pasa si necesito cambios después de la entrega?</div>
-        <div class="faq-a">Ofrecemos soporte y mantenimiento post-entrega. Los ajustes menores los resolvemos rápidamente; para nuevas funcionalidades acordamos un alcance adicional.</div>
-      </div>
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿Mis datos están seguros en la nube?</div>
-        <div class="faq-a">Usamos Supabase (infraestructura PostgreSQL sobre AWS) con acceso controlado por roles y autenticación segura. Tus datos son solo tuyos.</div>
-      </div>
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿Puedo tener varios usuarios con diferentes permisos?</div>
-        <div class="faq-a">Sí. Todos nuestros sistemas incluyen gestión de usuarios con roles y permisos configurables. Cada persona ve y hace solo lo que le corresponde.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FORMULARIO DE COTIZACIÓN -->
-<div class="cotizacion-section">
-  <div class="section" style="padding-top:4rem;padding-bottom:4rem;">
-    <div class="section-label">Cotización rápida</div>
-    <h2 class="section-title">Cuéntanos qué <em>necesitas</em></h2>
-    <p class="section-sub">Completa el formulario y te respondemos en menos de 24 horas con una propuesta inicial sin costo.</p>
-    <div class="cotizacion-inner">
-      <form class="cotizacion-form" onsubmit="enviarCotizacion(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nombre">Nombre o empresa</label>
-            <input type="text" id="nombre" placeholder="Tu nombre o razón social" required />
-          </div>
-          <div class="form-group">
-            <label for="whatsapp">WhatsApp</label>
-            <input type="tel" id="whatsapp" placeholder="3XXXXXXXXX" required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="tipoServicio">¿Qué te interesa?</label>
-          <select id="tipoServicio">
-            <option value="">Selecciona...</option>
-            <option>Desarrollo de software a medida</option>
-            <option>Campañas en Facebook e Instagram</option>
-            <option>Ambos servicios</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="sector">Sector de tu empresa</label>
-          <select id="sector">
-            <option value="">Selecciona...</option>
-            <option>Repuestos y accesorios para motos</option>
-            <option>Fabricante de calzado o ropa</option>
-            <option>Farmacia o droguería</option>
-            <option>Tienda o supermercado</option>
-            <option>Distribuidora o mayorista</option>
-            <option>Empresa manufacturera</option>
-            <option>Otro</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="necesidad">¿Qué proceso quieres sistematizar?</label>
-          <textarea id="necesidad" rows="4" placeholder="Ej: Quiero controlar mi inventario, llevar la nómina de 10 empleados, gestionar mis facturas DIAN..." required></textarea>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="usuarios">¿Cuántos usuarios usarían el sistema?</label>
-            <select id="usuarios">
-              <option value="">Selecciona...</option>
-              <option>1 - 3 usuarios</option>
-              <option>4 - 10 usuarios</option>
-              <option>11 - 30 usuarios</option>
-              <option>Más de 30 usuarios</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="urgencia">¿Con qué urgencia lo necesitas?</label>
-            <select id="urgencia">
-              <option value="">Selecciona...</option>
-              <option>Lo antes posible</option>
-              <option>En el próximo mes</option>
-              <option>En los próximos 3 meses</option>
-              <option>Solo estoy explorando</option>
-            </select>
-          </div>
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:14px;">
-          Enviar solicitud por WhatsApp →
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACTO -->
-<div class="contact-section">
-  <div class="contact-inner">
-    <div class="section-label">Contacto</div>
-    <h2 class="section-title">¿Listo para <em>digitalizar</em> tu empresa?</h2>
-    <p class="section-sub">Cuéntanos qué necesitas. Respondemos rápido y sin compromisos.</p>
-    <div class="contact-btns">
-      <a href="https://wa.me/573027132640?text=Hola,%20estoy%20interesado%20en%20una%20aplicaci%C3%B3n%20para%20mi%20empresa" target="_blank" class="btn-wa">
-        💬 WhatsApp: 302 713 2640
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><img src="assets/softgest-icon.svg" alt="" class="brand-icon" width="30" height="30" /><strong class="wm">soft<span>gest</span></strong></div>
-  <p class="footer-text">© 2026 SoftGest · Desarrollo de software y marketing digital · Colombia</p>
-  <ul class="footer-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="https://www.facebook.com/softgestapps" target="_blank" rel="noopener">Facebook</a></li>
-    <li><a href="https://www.linkedin.com/in/roldan-evelio-garcia-uribe-684234365" target="_blank" rel="noopener">LinkedIn</a></li>
-    <li><a href="https://wa.me/573027132640" target="_blank">Contacto</a></li>
-  </ul>
+  <div class="envoltura"><span>© 2026 SoftGest. Desarrollo de software y marketing digital en Colombia.</span><span>softgestapps.com</span></div>
 </footer>
 
-<!-- BOTÓN FLOTANTE WHATSAPP -->
-<a href="https://wa.me/573027132640?text=Hola,%20estoy%20interesado%20en%20una%20aplicaci%C3%B3n%20para%20mi%20empresa" target="_blank" class="wa-float" title="Escríbenos por WhatsApp">💬</a>
-
 <script>
-function enviarCotizacion(e) {
-  e.preventDefault();
-  const nombre   = document.getElementById('nombre').value.trim();
-  const whatsapp = document.getElementById('whatsapp').value.trim();
-  const tipoServicio = document.getElementById('tipoServicio').value;
-  const sector   = document.getElementById('sector').value;
-  const necesidad= document.getElementById('necesidad').value.trim();
-  const usuarios = document.getElementById('usuarios').value;
-  const urgencia = document.getElementById('urgencia').value;
+  const datos = {
+    peleteria: { palabra: "peletería", nombre: "Cueros del Norte", filas: [
+      ["Cuero napa negro", "18 m", 72, "$58.000 / m"], ["Hebilla dorada 3 cm", "240 und", 90, "$1.800"],
+      ["Hilo encerado café", "6 conos", 14, "$12.500"], ["Cremallera metálica 20 cm", "95 und", 60, "$2.300"],
+      ["Billetera cuero dama", "11 und", 30, "$65.000"] ],
+      resumen: [["Ventas de hoy", "$1.240.000"], ["Ganancia del mes", "$8.760.000"]], aviso: "El hilo encerado café se acaba en 4 días al ritmo de esta semana." },
+    ropa: { palabra: "tienda de ropa", nombre: "Moda Valentina", filas: [
+      ["Jean dama tiro alto, talla 8", "34 und", 68, "$89.000"], ["Camiseta básica blanca M", "6 und", 12, "$25.000"],
+      ["Chaqueta jean hombre L", "15 und", 45, "$120.000"], ["Vestido floral talla S", "21 und", 55, "$95.000"],
+      ["Sudadera jogger gris", "9 und", 20, "$55.000"] ],
+      resumen: [["Ventas de hoy", "$2.180.000"], ["Prenda más vendida", "Jean tiro alto"]], aviso: "Quedan 6 camisetas básicas M. Es la talla que más rota." },
+    vikingos: { palabra: "fábrica de vikingos", nombre: "Vikingos La Esquina", filas: [
+      ["Leche entera", "40 L", 50, "$4.200 / L"], ["Azúcar", "12 kg", 25, "$4.600 / kg"],
+      ["Bolsas para vikingo", "1.800 und", 85, "$35"], ["Saborizante de mora", "2 frascos", 10, "$9.800"],
+      ["Vikingos listos de arequipe", "320 und", 75, "$1.000"] ],
+      resumen: [["Producidos hoy", "620 vikingos"], ["Costo por vikingo", "$410"]], aviso: "Con el saborizante de mora que queda alcanza para 1 producción más." },
+    motos: { palabra: "venta de repuestos", nombre: "Repuestos El Pistón", filas: [
+      ["Pastillas de freno AKT 125", "48 jgo", 80, "$18.000"], ["Kit de arrastre Boxer CT", "3 kit", 10, "$95.000"],
+      ["Aceite 20W50, 1 L", "60 und", 70, "$28.000"], ["Bujía NGK C7HSA", "110 und", 88, "$9.500"],
+      ["Llanta trasera 90/90-18", "7 und", 25, "$165.000"] ],
+      resumen: [["Ventas de hoy", "$3.050.000"], ["Referencias activas", "1.284"]], aviso: "Quedan 3 kits de arrastre Boxer CT. Se venden 2 por semana." },
+    drogueria: { palabra: "droguería", nombre: "Droguería San Rafael", filas: [
+      ["Acetaminofén 500 mg x 100", "22 caj", 60, "$9.800"], ["Loratadina 10 mg x 10", "5 caj", 12, "$4.500"],
+      ["Suero oral 500 ml", "36 und", 70, "$3.900"], ["Alcohol antiséptico 350 ml", "28 und", 55, "$6.200"],
+      ["Tapabocas x 50", "14 caj", 35, "$12.000"] ],
+      resumen: [["Ventas de hoy", "$1.870.000"], ["Por vencer este mes", "9 lotes"]], aviso: "La loratadina está por agotarse y un lote vence el 30 de noviembre." },
+    calzado: { palabra: "fábrica de calzado", nombre: "Calzado Ruiz", filas: [
+      ["Suela PVC dama talla 37", "120 pares", 65, "$6.500"], ["Cuero sintético negro", "9 m", 15, "$22.000 / m"],
+      ["Pegante amarillo", "4 galones", 40, "$48.000"], ["Plantilla en espuma", "300 pares", 90, "$1.200"],
+      ["Botín dama terminado", "48 pares", 55, "$85.000"] ],
+      resumen: [["En producción", "3 órdenes"], ["Costo por par", "$31.400"]], aviso: "El cuero sintético negro alcanza solo para la orden de esta semana." }
+  };
 
-  const msg = `Hola, quiero una cotización:\n\n👤 *Nombre/Empresa:* ${nombre}\n🎯 *Servicio de interés:* ${tipoServicio || 'No especificado'}\n🏢 *Sector:* ${sector || 'No especificado'}\n📋 *Necesidad:* ${necesidad}\n👥 *Usuarios:* ${usuarios || 'No especificado'}\n⏱️ *Urgencia:* ${urgencia || 'No especificado'}\n📱 *Mi WhatsApp:* ${whatsapp}`;
+  const palabra = document.getElementById("negocio");
+  const cuerpo = document.getElementById("app-cuerpo");
+  const chips = [...document.querySelectorAll(".chip")];
+  const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let escribiendo = null, auto = null;
 
-  window.open(`https://wa.me/573027132640?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-// Scrollspy: resalta el link del nav correspondiente a la sección visible
-const navLinks = document.querySelectorAll('.nav-links a');
-const spySections = ['porque', 'servicios', 'proyectos', 'proceso', 'faq']
-  .map(id => document.getElementById(id))
-  .filter(Boolean);
-
-const spyObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
-      });
-    }
-  });
-}, { rootMargin: '-45% 0px -50% 0px' });
-
-spySections.forEach(section => spyObserver.observe(section));
-</script>
-
-<script>
-(function () {
-  const tiles = Array.from(document.querySelectorAll('.mosaic .tile'));
-  const mosaic = document.querySelector('.mosaic'), more = document.getElementById('gallery-more');
-  document.querySelectorAll('.gallery-filter').forEach(btn => btn.addEventListener('click', () => {
-    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    tiles.forEach(t => t.classList.toggle('hidden', f !== 'all' && t.dataset.cat !== f));
-    if (f !== 'all') { mosaic.classList.add('expanded'); more.style.display = 'none'; }
-  }));
-  more.addEventListener('click', () => {
-    const open = mosaic.classList.toggle('expanded');
-    more.textContent = open ? 'Ver menos ↑' : 'Ver más capturas ↓';
-    if (!open) document.getElementById('galeria').scrollIntoView({ behavior: 'smooth' });
-  });
-  const lb = document.getElementById('lightbox'), img = document.getElementById('lb-img'), cap = document.getElementById('lb-cap');
-  let idx = 0;
-  const visible = () => tiles.filter(t => t.offsetParent !== null);
-  function show(i) {
-    const v = visible(); idx = (i + v.length) % v.length;
-    const t = v[idx], im = t.querySelector('img');
-    img.src = im.src; img.alt = im.alt; cap.textContent = im.alt;
+  function pintar(k) {
+    const d = datos[k];
+    document.getElementById("app-titulo").textContent = d.nombre;
+    document.getElementById("app-ini").textContent = d.nombre[0];
+    document.getElementById("filas").innerHTML = d.filas.map(([p, ex, pct, precio]) => {
+      const bajo = pct < 20;
+      return `<tr class="${bajo ? "bajo" : ""}"><td>${p}</td><td>${ex}<span class="barra-stock"><b style="width:${pct}%"></b></span></td><td class="num">${precio}</td><td><span class="estado ${bajo ? "bajo" : "ok"}">${bajo ? "Por agotarse" : "Al día"}</span></td></tr>`;
+    }).join("");
+    document.getElementById("resumen").innerHTML =
+      d.resumen.map(([t, v]) => `<div>${t}<strong>${v}</strong></div>`).join("") + `<p class="aviso">${d.aviso}</p>`;
   }
-  tiles.forEach(t => t.addEventListener('click', () => { show(visible().indexOf(t)); lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); }));
-  const close = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); };
-  lb.querySelector('.lb-close').onclick = close;
-  lb.querySelector('.lb-prev').onclick = e => { e.stopPropagation(); show(idx - 1); };
-  lb.querySelector('.lb-next').onclick = e => { e.stopPropagation(); show(idx + 1); };
-  lb.addEventListener('click', e => { if (e.target === lb) close(); });
-  document.addEventListener('keydown', e => {
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1);
-  });
-})();
+
+  function escribir(texto) {
+    clearInterval(escribiendo);
+    if (sinMovimiento) { palabra.textContent = texto; return; }
+    let actual = palabra.textContent;
+    // borrar y luego teclear, como en el ">_" del logo
+    escribiendo = setInterval(() => {
+      if (!texto.startsWith(actual)) { actual = actual.slice(0, -1); }
+      else if (actual.length < texto.length) { actual = texto.slice(0, actual.length + 1); }
+      else { clearInterval(escribiendo); }
+      palabra.textContent = actual;
+    }, 38);
+  }
+
+  function elegir(k) {
+    chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.k === k));
+    escribir(datos[k].palabra);
+    if (sinMovimiento) { pintar(k); return; }
+    cuerpo.classList.add("cambiando");
+    setTimeout(() => { pintar(k); cuerpo.classList.remove("cambiando"); }, 160);
+  }
+
+  chips.forEach(c => c.addEventListener("click", () => { clearInterval(auto); elegir(c.dataset.k); }));
+  pintar("peleteria");
+
+  // Recorre los negocios solo hasta que la persona elige uno
+  if (!sinMovimiento) {
+    const orden = chips.map(c => c.dataset.k); let i = 0;
+    auto = setInterval(() => { i = (i + 1) % orden.length; elegir(orden[i]); }, 4200);
+  }
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
