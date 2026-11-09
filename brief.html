@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brief de tu negocio · SoftGest</title>
+<meta name="description" content="Cuéntanos sobre tu negocio para preparar tu plan de redes sociales con SoftGest.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/softgest-icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tinta:#0b2545; --azul:#1a5fad; --azul-hondo:#0d3e78; --cielo:#c2d9f6; --papel:#f3f6fb;
+    --linea:#d5dfec; --gris:#5a6b82; --ok:#17845a; --whatsapp:#1fa855; --blanco:#ffffff;
+    --mono:"JetBrains Mono", ui-monospace, monospace; --sans:"Schibsted Grotesk", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--papel);color:var(--tinta);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .top{background:var(--azul-hondo);color:#fff;padding:28px max(18px,env(safe-area-inset-left)) 34px max(18px,env(safe-area-inset-right))}
+  .top .in{max-width:760px;margin:0 auto}
+  .marca{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:20px;margin-bottom:22px;text-decoration:none;color:#fff}
+  .marca img{width:36px;height:36px}
+  .marca span{color:var(--cielo)}
+  h1{font-size:clamp(28px,6vw,40px);line-height:1.08;font-weight:800;letter-spacing:-.5px;text-wrap:balance}
+  .top p{color:#d6e4f8;margin-top:10px;max-width:600px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .oferta{margin-top:18px;background:#fff;color:var(--tinta);border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.45;border-left:6px solid var(--whatsapp)}
+  .oferta b{color:var(--ok)}
+  .oferta span{display:block;margin-top:4px;font-size:13px;color:var(--gris)}
+  .chips span{font-size:13px;font-weight:600;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:5px 12px;border-radius:999px}
+  main{max-width:760px;margin:-18px auto 0;padding:0 max(14px,env(safe-area-inset-left)) 120px max(14px,env(safe-area-inset-right))}
+  .prog{position:sticky;top:0;z-index:5;background:var(--papel);padding:10px 0 8px}
+  .prog .bar{height:6px;background:var(--linea);border-radius:99px;overflow:hidden}
+  .prog .bar i{display:block;height:100%;width:0;background:var(--azul);transition:width .3s}
+  .prog small{display:block;font-size:12px;color:var(--gris);margin-top:4px;font-family:var(--mono)}
+  section{background:var(--blanco);border:1px solid var(--linea);border-radius:18px;padding:22px 20px;margin-top:14px}
+  section h2{font-size:20px;font-weight:800;display:flex;align-items:baseline;gap:10px}
+  section h2 b{font-family:var(--mono);font-size:13px;color:var(--azul);font-weight:700}
+  section > p.ay{color:var(--gris);font-size:14px;margin:4px 0 14px}
+  .q{margin-top:16px}
+  .q > label,.q > .lb{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+  .q .hint{font-weight:400;color:var(--gris);font-size:13px;display:block}
+  input[type=text],input[type=tel],input[type=email],select,textarea{width:100%;font:inherit;color:var(--tinta);background:var(--papel);border:1.5px solid var(--linea);border-radius:12px;padding:12px 14px}
+  textarea{min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--azul);background:#fff}
+  .ops{display:flex;flex-wrap:wrap;gap:8px}
+  .ops label{display:flex;align-items:center;gap:8px;border:1.5px solid var(--linea);background:var(--papel);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;user-select:none}
+  .ops input{accent-color:var(--azul);width:16px;height:16px}
+  .ops label:has(input:checked){border-color:var(--azul);background:#e6effb;color:var(--azul-hondo)}
+  .ops label:has(input:focus-visible){outline:3px solid var(--cielo)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .colores{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .colores input[type=color]{width:52px;height:44px;border:1.5px solid var(--linea);border-radius:10px;background:#fff;padding:3px;cursor:pointer}
+  .nota{font-size:13px;color:var(--gris);background:var(--papel);border-radius:12px;padding:10px 12px;margin-top:10px}
+  .enviar{position:fixed;left:0;right:0;bottom:0;background:rgba(243,246,251,.96);backdrop-filter:blur(6px);border-top:1px solid var(--linea);padding:12px max(14px,env(safe-area-inset-left)) calc(12px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-right));z-index:10}
+  .enviar .in{max-width:760px;margin:0 auto;display:flex;gap:10px;align-items:center}
+  .btn{font:inherit;font-weight:800;border:0;border-radius:14px;padding:14px 18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+  .btn-wa{background:var(--whatsapp);color:#fff;flex:1;font-size:17px}
+  .btn-sec{background:#fff;color:var(--tinta);border:1.5px solid var(--linea)}
+  .err{color:#b42318;font-size:13px;font-weight:600;margin-top:6px;display:none}
+  .q.bad .err{display:block}
+  .q.bad input,.q.bad select{border-color:#b42318}
+  .gracias{display:none;text-align:center;padding:30px 20px}
+  .gracias b{display:block;font-size:22px;margin-bottom:6px}
+  footer{max-width:760px;margin:24px auto 0;padding:0 18px;color:var(--gris);font-size:13px;text-align:center}
+  @media (max-width:540px){.two{grid-template-columns:1fr}section{padding:18px 16px}.btn-sec span{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog .bar i{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="marca" href="index.html"><img src="assets/softgest-icon.svg" alt="">soft<span>gest</span></a>
+  <h1>Cuéntanos de tu negocio y armamos tu plan de redes</h1>
+  <p>Son unas preguntas rápidas (8 a 10 minutos). Con tus respuestas preparamos la estrategia, el contenido y la pauta antes de nuestra primera reunión.</p>
+  <div class="chips"><span>Facebook</span><span>Instagram</span><span>WhatsApp</span><span>Página web de obsequio</span></div>
+  <div class="oferta"><b>10 días de campaña gratis</b> con nuestros servicios: estrategia, diseño, contenido y manejo de tus anuncios. <span>Lo que se invierta en publicidad (lo que se le paga a Meta por mostrar los anuncios) corre por cuenta del negocio.</span></div>
+</div></header>
+
+<main>
+  <div class="prog" aria-hidden="true"><div class="bar"><i id="pbar"></i></div><small id="ptxt">0 de 7 secciones</small></div>
+
+  <form id="brief" novalidate>
+
+  <section data-sec>
+    <h2><b>1</b>Tu negocio</h2>
+    <p class="ay">Lo básico para conocerte.</p>
+    <div class="q req"><label for="negocio">Nombre del negocio *</label><input type="text" id="negocio" name="Negocio" autocomplete="organization"><div class="err">Escribe el nombre de tu negocio.</div></div>
+    <div class="two">
+      <div class="q req"><label for="contacto">Tu nombre *</label><input type="text" id="contacto" name="Contacto" autocomplete="name"><div class="err">Escribe tu nombre.</div></div>
+      <div class="q req"><label for="whatsapp">WhatsApp *</label><input type="tel" id="whatsapp" name="WhatsApp" inputmode="tel" placeholder="300 123 4567" autocomplete="tel"><div class="err">Escribe un número de WhatsApp.</div></div>
+    </div>
+    <div class="q"><label for="sector">¿A qué se dedica? <span class="hint">Ej.: ferretería, tienda de ropa, restaurante, taller de motos, fábrica de calzado, peluquería…</span></label><input type="text" id="sector" name="Tipo de negocio"></div>
+    <div class="two">
+      <div class="q"><label for="municipio">Municipio</label>
+        <select id="municipio" name="Municipio"><option value="">Selecciona…</option><option>Cúcuta</option><option>Villa del Rosario</option><option>Los Patios</option><option>El Zulia</option><option>San Cayetano</option><option>Puerto Santander</option><option>Ocaña</option><option>Pamplona</option><option>Tibú</option><option>Sardinata</option><option>Chinácota</option><option>Ábrego</option><option>Otro</option></select></div>
+      <div class="q"><label for="zona">Barrio o sector</label><input type="text" id="zona" name="Barrio/sector" placeholder="Ej.: Centro, La Libertad, Atalaya…"></div>
+    </div>
+    <div class="q"><span class="lb">¿Cómo atiendes?</span><div class="ops" data-name="Atención">
+      <label><input type="checkbox" value="Local físico">Local físico</label><label><input type="checkbox" value="Domicilios">Domicilios</label><label><input type="checkbox" value="Envíos nacionales">Envíos nacionales</label><label><input type="checkbox" value="Solo por WhatsApp/redes">Solo por WhatsApp/redes</label><label><input type="checkbox" value="Servicio a domicilio (técnico)">Servicio a domicilio (técnico)</label></div></div>
+    <div class="two">
+      <div class="q"><label for="horario">Horario de atención</label><input type="text" id="horario" name="Horario" placeholder="Lun a sáb 8 a. m. – 7 p. m."></div>
+      <div class="q"><label for="anios">¿Hace cuánto funciona?</label><select id="anios" name="Antigüedad"><option value="">Selecciona…</option><option>Está empezando</option><option>Menos de 1 año</option><option>1 a 3 años</option><option>3 a 10 años</option><option>Más de 10 años</option></select></div>
+    </div>
+  </section>
+
+  <section data-sec>
+    <h2><b>2</b>Lo que vendes</h2>
+    <p class="ay">Lo que más queremos mostrar en redes.</p>
+    <div class="q"><label for="estrella">Tus 3 productos o servicios estrella <span class="hint">Los que más vendes o más quieres vender, con precio aproximado si quieres.</span></label><textarea id="estrella" name="Productos estrella" placeholder="1. …&#10;2. …&#10;3. …"></textarea></div>
+    <div class="q"><label for="diferencia">¿Por qué te compran a ti y no a la competencia?</label><textarea id="diferencia" name="Diferencial" placeholder="Precio, calidad, rapidez, atención, garantía, trayectoria…"></textarea></div>
+    <div class="q"><span class="lb">¿Cuáles son tus temporadas fuertes?</span><div class="ops" data-name="Temporadas">
+      <label><input type="checkbox" value="Quincenas">Quincenas</label><label><input type="checkbox" value="Diciembre / Navidad">Diciembre / Navidad</label><label><input type="checkbox" value="Temporada escolar">Temporada escolar</label><label><input type="checkbox" value="Día de la Madre">Día de la Madre</label><label><input type="checkbox" value="Día del Padre">Día del Padre</label><label><input type="checkbox" value="Amor y Amistad">Amor y Amistad</label><label><input type="checkbox" value="Semana Santa">Semana Santa</label><label><input type="checkbox" value="Todo el año igual">Todo el año igual</label></div></div>
+    <div class="q"><label for="promo">¿Tienes alguna promoción o novedad para lanzar pronto?</label><input type="text" id="promo" name="Promoción próxima"></div>
+  </section>
+
+  <section data-sec>
+    <h2><b>3</b>Tu cliente</h2>
+    <p class="ay">A quién le vamos a mostrar los anuncios.</p>
+    <div class="q"><span class="lb">¿Quién te compra más?</span><div class="ops" data-name="Cliente: género">
+      <label><input type="checkbox" value="Mujeres">Mujeres</label><label><input type="checkbox" value="Hombres">Hombres</label><label><input type="checkbox" value="Ambos por igual">Ambos por igual</label><label><input type="checkbox" value="Empresas / otros negocios">Empresas / otros negocios</label></div></div>
+    <div class="q"><span class="lb">Edades de tus clientes</span><div class="ops" data-name="Cliente: edades">
+      <label><input type="checkbox" value="18-24">18 – 24</label><label><input type="checkbox" value="25-34">25 – 34</label><label><input type="checkbox" value="35-44">35 – 44</label><label><input type="checkbox" value="45-54">45 – 54</label><label><input type="checkbox" value="55+">55 o más</label></div></div>
+    <div class="q"><span class="lb">¿Hasta dónde quieres llegar?</span><div class="ops" data-name="Alcance geográfico">
+      <label><input type="radio" name="alc" value="Mi barrio y alrededores">Mi barrio y alrededores</label><label><input type="radio" name="alc" value="Mi municipio">Mi municipio</label><label><input type="radio" name="alc" value="Área metropolitana de Cúcuta">Área metropolitana de Cúcuta</label><label><input type="radio" name="alc" value="Todo Norte de Santander">Todo Norte de Santander</label><label><input type="radio" name="alc" value="Todo Colombia (envíos)">Todo Colombia (envíos)</label></div></div>
+    <div class="q"><span class="lb">¿Cómo te encuentran hoy tus clientes?</span><div class="ops" data-name="Cómo llegan hoy">
+      <label><input type="checkbox" value="Pasan por el local">Pasan por el local</label><label><input type="checkbox" value="Recomendación">Recomendación</label><label><input type="checkbox" value="Facebook">Facebook</label><label><input type="checkbox" value="Instagram">Instagram</label><label><input type="checkbox" value="Estados de WhatsApp">Estados de WhatsApp</label><label><input type="checkbox" value="Google Maps">Google Maps</label><label><input type="checkbox" value="TikTok">TikTok</label></div></div>
+  </section>
+
+  <section data-sec>
+    <h2><b>4</b>Tus redes hoy</h2>
+    <p class="ay">Para saber desde dónde arrancamos.</p>
+    <div class="q"><span class="lb">¿Qué tienes creado?</span><div class="ops" data-name="Redes existentes">
+      <label><input type="checkbox" value="Página de Facebook">Página de Facebook</label><label><input type="checkbox" value="Instagram">Instagram</label><label><input type="checkbox" value="WhatsApp Business">WhatsApp Business</label><label><input type="checkbox" value="TikTok">TikTok</label><label><input type="checkbox" value="Perfil en Google Maps">Perfil en Google Maps</label><label><input type="checkbox" value="Página web">Página web</label><label><input type="checkbox" value="No tengo ninguna">No tengo ninguna</label></div></div>
+    <div class="q"><label for="usuarios">Nombre de usuario o enlace de tus redes <span class="hint">Ej.: @minegocio, facebook.com/minegocio</span></label><input type="text" id="usuarios" name="Usuarios de redes"></div>
+    <div class="q"><span class="lb">¿Quién las maneja hoy?</span><div class="ops" data-name="Quién maneja las redes">
+      <label><input type="radio" name="quien" value="Yo mismo">Yo mismo</label><label><input type="radio" name="quien" value="Un empleado o familiar">Un empleado o familiar</label><label><input type="radio" name="quien" value="Otra agencia">Otra agencia</label><label><input type="radio" name="quien" value="Nadie, están quietas">Nadie, están quietas</label></div></div>
+    <div class="q"><span class="lb">¿Has pagado publicidad en Facebook o Instagram antes?</span><div class="ops" data-name="Pauta previa">
+      <label><input type="radio" name="pp" value="Sí, con buenos resultados">Sí, con buenos resultados</label><label><input type="radio" name="pp" value="Sí, pero no funcionó">Sí, pero no funcionó</label><label><input type="radio" name="pp" value="Solo el botón Promocionar">Solo el botón "Promocionar"</label><label><input type="radio" name="pp" value="Nunca">Nunca</label></div></div>
+    <p class="nota">No escribas contraseñas aquí. El acceso a tus cuentas lo configuramos juntos en la primera reunión.</p>
+  </section>
+
+  <section data-sec>
+    <h2><b>5</b>Objetivo y pauta</h2>
+    <p class="ay">Qué quieres lograr y cuánto invertir en anuncios.</p>
+    <div class="q"><span class="lb">¿Qué es lo más importante para ti ahora?</span><div class="ops" data-name="Objetivo principal">
+      <label><input type="radio" name="obj" value="Que me escriban más por WhatsApp">Que me escriban más por WhatsApp</label><label><input type="radio" name="obj" value="Que vengan más al local">Que vengan más al local</label><label><input type="radio" name="obj" value="Vender más a domicilio">Vender más a domicilio</label><label><input type="radio" name="obj" value="Que más gente conozca la marca">Que más gente conozca la marca</label><label><input type="radio" name="obj" value="Lanzar un producto o promoción">Lanzar un producto o promoción</label></div></div>
+    <div class="q"><span class="lb">¿En qué redes quieres pautar?</span><div class="ops" data-name="Redes para pautar">
+      <label><input type="checkbox" value="Facebook">Facebook</label><label><input type="checkbox" value="Instagram">Instagram</label><label><input type="checkbox" value="Estados de WhatsApp">Estados de WhatsApp</label><label><input type="checkbox" value="Que SoftGest recomiende">Que SoftGest me recomiende</label></div></div>
+    <div class="q"><span class="lb">Presupuesto para pauta <span class="hint">Es el dinero que se le paga a Meta por mostrar los anuncios. Lo asume el negocio, también durante los 10 días gratis: lo gratuito son nuestros servicios. Va aparte del plan de $250.000.</span></span><div class="ops" data-name="Presupuesto de pauta">
+      <label><input type="radio" name="pres" value="Menos de $100.000">Menos de $100.000</label><label><input type="radio" name="pres" value="$100.000 – $200.000">$100.000 – $200.000</label><label><input type="radio" name="pres" value="$200.000 – $400.000">$200.000 – $400.000</label><label><input type="radio" name="pres" value="Más de $400.000">Más de $400.000</label><label><input type="radio" name="pres" value="No sé, que me asesoren">No sé, que me asesoren</label></div></div>
+    <div class="q"><span class="lb">¿A dónde quieres que lleguen los clientes?</span><div class="ops" data-name="Destino de los anuncios">
+      <label><input type="checkbox" value="A mi WhatsApp">A mi WhatsApp</label><label><input type="checkbox" value="A mi Instagram">A mi Instagram</label><label><input type="checkbox" value="A mi página web">A mi página web</label><label><input type="checkbox" value="A cómo llegar al local">A cómo llegar al local</label></div></div>
+  </section>
+
+  <section data-sec>
+    <h2><b>6</b>Imagen de tu marca</h2>
+    <p class="ay">Cómo quieres que se vea tu negocio.</p>
+    <div class="q"><span class="lb">¿Tienes logo?</span><div class="ops" data-name="Logo">
+      <label><input type="radio" name="logo" value="Sí, y me gusta">Sí, y me gusta</label><label><input type="radio" name="logo" value="Sí, pero quiero renovarlo">Sí, pero quiero renovarlo</label><label><input type="radio" name="logo" value="No tengo, necesito uno">No tengo, necesito uno</label></div></div>
+    <div class="q"><span class="lb">Colores de tu marca <span class="hint">Toca cada cuadro para elegir. Si no tienes colores definidos, déjalos así y escribe abajo cuáles te gustan.</span></span>
+      <div class="colores"><input type="color" id="c1" value="#1a5fad" aria-label="Color 1"><input type="color" id="c2" value="#ffffff" aria-label="Color 2"><input type="color" id="c3" value="#f5b301" aria-label="Color 3">
+      <label class="ops" style="display:flex"><span style="display:flex;align-items:center;gap:8px;border:1.5px solid var(--linea);background:var(--papel);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600"><input type="checkbox" id="sinColores" style="accent-color:var(--azul)">Aún no tengo colores</span></label></div>
+      <input type="text" id="coloresTxt" name="Colores (texto)" placeholder="Ej.: azul y amarillo, tonos tierra…" style="margin-top:10px"></div>
+    <div class="q"><span class="lb">Estilo que quieres transmitir</span><div class="ops" data-name="Estilo">
+      <label><input type="checkbox" value="Moderno">Moderno</label><label><input type="checkbox" value="Elegante">Elegante</label><label><input type="checkbox" value="Juvenil y divertido">Juvenil y divertido</label><label><input type="checkbox" value="Cercano y familiar">Cercano y familiar</label><label><input type="checkbox" value="Tradicional, de confianza">Tradicional, de confianza</label><label><input type="checkbox" value="Económico / precios bajos">Económico / precios bajos</label><label><input type="checkbox" value="Profesional / técnico">Profesional / técnico</label></div></div>
+    <div class="q"><label for="referentes">Marcas o páginas que te gustan cómo se ven <span class="hint">De tu sector o de cualquier otro.</span></label><input type="text" id="referentes" name="Referentes"></div>
+    <div class="q"><label for="nogusta">¿Algo que NO quieras ver en tus redes?</label><input type="text" id="nogusta" name="No le gusta" placeholder="Colores, estilos, palabras…"></div>
+  </section>
+
+  <section data-sec>
+    <h2><b>7</b>Contenido y diseño</h2>
+    <p class="ay">Qué tenemos y qué hay que crear.</p>
+    <div class="q"><span class="lb">¿Qué necesitas que te diseñemos?</span><div class="ops" data-name="Diseño requerido">
+      <label><input type="checkbox" value="Logo">Logo</label><label><input type="checkbox" value="Foto de perfil y portada">Foto de perfil y portada</label><label><input type="checkbox" value="Plantillas para publicaciones">Plantillas para publicaciones</label><label><input type="checkbox" value="Catálogo de WhatsApp">Catálogo de WhatsApp</label><label><input type="checkbox" value="Menú o lista de precios">Menú o lista de precios</label><label><input type="checkbox" value="Tarjeta digital">Tarjeta digital</label><label><input type="checkbox" value="Videos / reels">Videos / reels</label></div></div>
+    <div class="q"><span class="lb">¿Tienes fotos o videos de tus productos o trabajos?</span><div class="ops" data-name="Material disponible">
+      <label><input type="radio" name="mat" value="Sí, bastantes">Sí, bastantes</label><label><input type="radio" name="mat" value="Algunas">Algunas</label><label><input type="radio" name="mat" value="No, hay que hacerlas">No, hay que hacerlas</label></div></div>
+    <div class="q"><span class="lb">¿Quién puede salir en los videos?</span><div class="ops" data-name="Quién sale en videos">
+      <label><input type="checkbox" value="El dueño">El dueño</label><label><input type="checkbox" value="Empleados">Empleados</label><label><input type="checkbox" value="Solo los productos">Solo los productos</label><label><input type="checkbox" value="Prefiero animaciones">Prefiero animaciones</label></div></div>
+    <div class="q"><span class="lb">Tono para hablarle a tus clientes</span><div class="ops" data-name="Tono">
+      <label><input type="radio" name="tono" value="Cercano, como un vecino">Cercano, como un vecino</label><label><input type="radio" name="tono" value="Divertido, con humor">Divertido, con humor</label><label><input type="radio" name="tono" value="Profesional y serio">Profesional y serio</label></div></div>
+    <div class="q"><label for="web">Para tu página web de obsequio, ¿qué te gustaría que tenga?</label><textarea id="web" name="Página web" placeholder="Ej.: catálogo, ubicación en el mapa, botón de WhatsApp, horarios, galería de trabajos…"></textarea></div>
+    <div class="q"><label for="extra">¿Algo más que debamos saber?</label><textarea id="extra" name="Comentarios"></textarea></div>
+    <div class="q"><span class="lb">¿Cuándo te podemos llamar?</span><div class="ops" data-name="Mejor horario para llamar">
+      <label><input type="radio" name="hl" value="Mañana">Mañana</label><label><input type="radio" name="hl" value="Mediodía">Mediodía</label><label><input type="radio" name="hl" value="Tarde">Tarde</label><label><input type="radio" name="hl" value="Noche">Noche</label></div></div>
+    <p class="nota"><b>Así funciona:</b> los primeros 10 días nuestros servicios son gratis (estrategia, diseño, contenido y manejo de la campaña). Después, el plan cuesta $250.000 al mes. Lo que se invierta en publicidad en Meta y el dominio de la página web los paga el negocio desde el primer día.</p>
+  </section>
+
+  </form>
+
+  <section class="gracias" id="gracias">
+    <b>¡Gracias! Ya casi está</b>
+    Se abrió tu WhatsApp con tus respuestas. Solo toca <b style="display:inline;font-size:inherit">Enviar</b> y te contactamos para la primera reunión.
+    <div style="margin-top:14px"><button class="btn btn-sec" type="button" id="reabrir">Abrir WhatsApp de nuevo</button></div>
+  </section>
+
+  <footer>SoftGest · Hecho en Cúcuta · WhatsApp 302 713 2640 · softgestapps.com</footer>
+</main>
+
+<div class="enviar"><div class="in">
+  <button class="btn btn-sec" type="button" id="copiar" title="Copiar respuestas">⧉ <span>Copiar</span></button>
+  <button class="btn btn-wa" type="button" id="enviarWA"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Enviar por WhatsApp</button>
+</div></div>
+
+<script>
+const NUM='573027132640';
+const form=document.getElementById('brief');
+const secs=[...document.querySelectorAll('[data-sec]')];
+const KEY='softgest-brief';
+
+function answered(sec){return [...sec.querySelectorAll('input[type=text],input[type=tel],select,textarea')].some(e=>e.value.trim())||sec.querySelector('input[type=checkbox]:checked,input[type=radio]:checked')}
+function progress(){const n=secs.filter(answered).length;document.getElementById('pbar').style.width=(n/secs.length*100)+'%';document.getElementById('ptxt').textContent=`${n} de ${secs.length} secciones`}
+
+function collect(){
+  const out=[];
+  secs.forEach(sec=>{
+    const title=sec.querySelector('h2').textContent.replace(/^\d+/,'').trim();
+    const lines=[];
+    sec.querySelectorAll('.q').forEach(q=>{
+      const field=q.querySelector('input[type=text],input[type=tel],select,textarea');
+      const group=q.querySelector('.ops[data-name]');
+      if(group){const v=[...group.querySelectorAll('input:checked')].map(i=>i.value);if(v.length)lines.push(`• ${group.dataset.name}: ${v.join(', ')}`)}
+      if(field&&field.value.trim()&&field.id!=='coloresTxt')lines.push(`• ${field.name}: ${field.value.trim()}`);
+    });
+    if(sec.querySelector('#c1')){
+      const sin=document.getElementById('sinColores').checked;
+      const t=document.getElementById('coloresTxt').value.trim();
+      const touched=['c1','c2','c3'].some(id=>document.getElementById(id).dataset.t);
+      if(sin||touched||t)lines.push(`• Colores: ${sin?'Aún no tiene colores definidos':touched?['c1','c2','c3'].map(id=>document.getElementById(id).value.toUpperCase()).join(', '):''}${t?(sin||touched?' (':'')+t+(sin||touched?')':''):''}`);
+    }
+    if(lines.length)out.push(`*${title.toUpperCase()}*\n${lines.join('\n')}`);
+  });
+  return `Hola SoftGest 👋 Este es el brief de mi negocio:\n\n${out.join('\n\n')}`;
+}
+function validate(){
+  let ok=true,first=null;
+  document.querySelectorAll('.q.req').forEach(q=>{const f=q.querySelector('input');const bad=!f.value.trim()||(f.type==='tel'&&f.value.replace(/\D/g,'').length<7);q.classList.toggle('bad',bad);if(bad){ok=false;first=first||f}});
+  if(first){first.focus();first.scrollIntoView({block:'center'})}
+  return ok;
+}
+function save(){try{const d={};form.querySelectorAll('input,select,textarea').forEach((e,i)=>{d[e.id||('i'+i)]=(e.type==='checkbox'||e.type==='radio')?e.checked:e.value});localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d)return;form.querySelectorAll('input,select,textarea').forEach((e,i)=>{const k=e.id||('i'+i);if(!(k in d))return;if(e.type==='checkbox'||e.type==='radio')e.checked=d[k];else e.value=d[k]})}catch(e){}}
+
+let lastUrl='';
+document.getElementById('enviarWA').addEventListener('click',()=>{
+  if(!validate())return;
+  lastUrl=`https://wa.me/${NUM}?text=${encodeURIComponent(collect())}`;
+  window.location.href=lastUrl;
+  document.getElementById('gracias').style.display='block';
+});
+document.getElementById('reabrir').addEventListener('click',()=>{if(lastUrl)window.location.href=lastUrl});
+document.getElementById('copiar').addEventListener('click',async()=>{
+  const t=collect();
+  try{await navigator.clipboard.writeText(t);alertMsg('Respuestas copiadas. Pégalas en un chat con SoftGest.')}catch(e){alertMsg('No se pudo copiar automáticamente.')}
+});
+function alertMsg(m){const b=document.getElementById('copiar');const o=b.innerHTML;b.textContent='✓';b.title=m;setTimeout(()=>{b.innerHTML=o},1600)}
+form.addEventListener('input',()=>{progress();save();document.querySelectorAll('.q.req.bad').forEach(q=>{if(q.querySelector('input').value.trim())q.classList.remove('bad')})});
+form.addEventListener('change',()=>{progress();save()});
+['c1','c2','c3'].forEach(id=>document.getElementById(id).addEventListener('input',e=>{e.target.dataset.t='1'}));
+load();progress();
+</script>
+</body>
+</html>
