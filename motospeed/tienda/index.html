@@ -6,8 +6,8 @@
   <title>Moto Speed · Tienda de repuestos</title>
   <meta name="description" content="Tienda online de Moto Speed: repuestos para tu moto con precio y disponibilidad al instante.">
   <meta name="robots" content="noindex">
-  <link rel="icon" href="../../assets/motospeed-icon-192.png">
-  <link rel="apple-touch-icon" href="../../assets/motospeed-apple-touch-icon.png">
+  <link rel="icon" href="/assets/motospeed-icon-192.png">
+  <link rel="apple-touch-icon" href="/assets/motospeed-apple-touch-icon.png">
   
   <meta name="theme-color" content="#0b0a07">
   <meta name="apple-mobile-web-app-title" content="Moto Speed">
@@ -55,14 +55,14 @@
 </head>
 <body>
   <main class="caja">
-    <div class="escena"><img class="dragona" src="../../assets/motospeed-dragona.webp" alt="La dragona de Moto Speed"></div>
-    <div class="marca"><img class="logo" src="../../assets/motospeed-icon-192.png" alt=""><h1>MOTO SPEED</h1></div>
+    <div class="escena"><img class="dragona" src="/assets/motospeed-dragona.webp" alt="La dragona de Moto Speed"></div>
+    <div class="marca"><img class="logo" src="/assets/motospeed-icon-192.png" alt=""><h1>MOTO SPEED</h1></div>
     <p class="sub">Abriendo la tienda de repuestos…</p>
     <div class="barra" aria-hidden="true"><i id="barra"></i></div>
     <p class="estado" id="estado" role="status">Conectando con el servidor</p>
     <div class="tip" id="tip"></div>
     <a class="btn" id="btn" href="#">Ir a la tienda →</a>
-    <div class="pie">por <a href="../../">SoftGest</a></div>
+    <div class="pie">por <a href="/">SoftGest</a></div>
   </main>
   <script>
     // Dirección de la app en Render. Si cambia el dominio, solo hay que cambiar esta línea (en las dos páginas).
@@ -85,12 +85,18 @@
     $('btn').href = DESTINO;
 
     async function listo() {
-      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 10000);
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 12000);
       try {
         const r = await fetch(APP + '/salud?t=' + Date.now(), { cache: 'no-store', signal: ctl.signal });
         const j = await r.json();
         return j && j.ok === true;
-      } catch (e) { return false; } finally { clearTimeout(t); }
+      } catch (e) {
+        // Si el navegador bloquea la respuesta (versión anterior de la app sin permiso CORS),
+        // basta con saber que el servidor ya contestó: una petición "no-cors" se resuelve cuando responde.
+        if (ctl.signal.aborted) return false;
+        try { await fetch(APP + '/salud?nc=' + Date.now(), { mode: 'no-cors', cache: 'no-store', signal: ctl.signal }); return true; }
+        catch (e2) { return false; }
+      } finally { clearTimeout(t); }
     }
     async function esperar() {
       while ((Date.now() - inicio) < 150000) {
