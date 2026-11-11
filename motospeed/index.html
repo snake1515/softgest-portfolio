@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moto Speed · Entrando</title>
+  <meta name="description" content="Entrada a la app de Moto Speed: punto de venta, caja, inventario y preventa.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/motospeed-icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/motospeed-apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0b0a07">
+  <meta name="apple-mobile-web-app-title" content="Moto Speed">
+  <meta property="og:title" content="Moto Speed · App del almacén">
+  <meta property="og:image" content="https://softgestapps.com/assets/motospeed-icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
+  <style>
+    :root { --amarillo:#ffc400; --rojo:#e8243c; --fondo:#0b0a07; --texto:#ece6d2; --suave:#a9a28c; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body { font-family: 'Barlow', system-ui, sans-serif; color: var(--texto); background: var(--fondo);
+      display: flex; align-items: center; justify-content: center; padding: 24px 16px; overflow: hidden; position: relative; }
+    body::before { content: ""; position: fixed; right: -160px; top: -200px; width: 520px; height: 160%; transform: rotate(26deg);
+      background: repeating-linear-gradient(90deg, var(--amarillo) 0 40px, transparent 40px 62px, var(--rojo) 62px 72px, transparent 72px 130px);
+      opacity: .13; pointer-events: none; }
+    .caja { width: 100%; max-width: 440px; text-align: center; position: relative; }
+    .escena { position: relative; display: inline-block; }
+    .escena::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 150px; height: 18px; transform: translateX(-50%);
+      background: radial-gradient(closest-side, rgba(255,196,0,.35), transparent); animation: sombra 1.6s ease-in-out infinite; }
+    .dragona { width: 210px; height: auto; display: block; filter: drop-shadow(0 14px 28px rgba(0,0,0,.65));
+      transform-origin: 50% 100%; animation: salto 1.6s ease-in-out infinite; }
+    @keyframes salto { 0%, 100% { transform: translateY(0) rotate(-2deg) } 50% { transform: translateY(-12px) rotate(2deg) } }
+    @keyframes sombra { 0%, 100% { opacity: 1; width: 150px } 50% { opacity: .5; width: 110px } }
+    .marca { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; }
+    .logo { width: 58px; height: 58px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+    h1 { font-family: 'Orbitron', 'Barlow', sans-serif; font-weight: 900; font-style: italic; font-size: 38px; margin: 0;
+      color: var(--amarillo); text-shadow: 3px 3px 0 var(--rojo); letter-spacing: .01em; }
+    .sub { color: var(--suave); margin: 6px 0 26px; font-size: 16px; }
+    .barra { height: 10px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden; }
+    .barra i { display: block; height: 100%; width: 0; border-radius: 99px; transition: width .6s ease;
+      background: repeating-linear-gradient(-45deg, var(--amarillo) 0 12px, #e6ad00 12px 24px); background-size: 34px 34px; animation: rayas .8s linear infinite; }
+    @keyframes rayas { to { background-position: 34px 0 } }
+    .estado { margin: 14px 0 0; font-size: 16px; font-weight: 700; color: #fff; min-height: 22px; }
+    .tip { margin: 24px auto 0; padding: 14px 16px; background: rgba(255,255,255,.06); border-left: 4px solid var(--amarillo); border-radius: 10px;
+      font-size: 15px; line-height: 1.45; text-align: left; min-height: 74px; transition: opacity .4s; }
+    .tip b { color: var(--amarillo); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+    .btn { display: none; margin: 22px auto 0; background: var(--amarillo); color: #0b0a07; text-decoration: none; font-weight: 800;
+      padding: 13px 24px; border-radius: 10px; font-size: 16px; }
+    .pie { margin-top: 32px; font-size: 13px; color: var(--suave); }
+    .pie a { color: var(--suave); }
+    @media (max-width: 420px) { .dragona { width: 180px; } h1 { font-size: 30px; } .logo { width: 48px; height: 48px; } }
+    @media (prefers-reduced-motion: reduce) { .barra i, .tip, .dragona, .escena::after { transition: none; animation: none; } }
+  </style>
+</head>
+<body>
+  <main class="caja">
+    <div class="escena"><img class="dragona" src="../assets/motospeed-dragona.webp" alt="La dragona de Moto Speed"></div>
+    <div class="marca"><img class="logo" src="../assets/motospeed-icon-192.png" alt=""><h1>MOTO SPEED</h1></div>
+    <p class="sub">Preparando tu app…</p>
+    <div class="barra" aria-hidden="true"><i id="barra"></i></div>
+    <p class="estado" id="estado" role="status">Conectando con el servidor</p>
+    <div class="tip" id="tip"></div>
+    <a class="btn" id="btn" href="#">Entrar a la app →</a>
+    <div class="pie">por <a href="../">SoftGest</a></div>
+  </main>
+  <script>
+    // Dirección de la app en Render. Si cambia el dominio, solo hay que cambiar esta línea (en las dos páginas).
+    const APP = 'https://moto-speed.onrender.com';
+    const DESTINO = APP + '/login';
+    const TIPS = ["En el POS puedes buscar por la moto del cliente: «pastillas ns 200» encuentra el repuesto.", "Al cobrar puedes combinar Nequi y efectivo, y la app calcula el cambio.", "Al cerrar la caja cuentas billetes y monedas; la app dice si sobra o falta.", "Cada compra recalcula el costo promedio: la ganancia de cada venta es real.", "El preventista abre su ruta del día en Google Maps con un solo botón.", "Los pedidos de la tienda y de los preventistas apartan el stock hasta que los despachas.", "En Reportes ves la ganancia neta después de gastos y nómina."];
+    const $ = id => document.getElementById(id);
+    let i = 0;
+    const tip = () => { $('tip').style.opacity = 0; setTimeout(() => {
+      $('tip').innerHTML = '<b>¿Sabías que?</b>' + TIPS[i++ % TIPS.length]; $('tip').style.opacity = 1; }, 300); };
+    tip(); const tTip = setInterval(tip, 6000);
+
+    const inicio = Date.now();
+    let avance = 4;
+    const tBarra = setInterval(() => { avance = Math.min(avance + (92 - avance) * 0.06, 92); $('barra').style.width = avance + '%'; }, 500);
+    const mensajes = [[0, "Conectando con el servidor"], [6, "Encendiendo la app"], [20, "Ya casi está lista"], [45, "Está tardando un poco más de lo normal"], [75, "Seguimos intentando…"]];
+    const tMsg = setInterval(() => { const s = (Date.now() - inicio) / 1000;
+      $('estado').textContent = mensajes.filter(m => s >= m[0]).pop()[1];
+      if (s > 25) { $('btn').style.display = 'inline-block'; } }, 1000);
+    $('btn').href = DESTINO;
+
+    async function listo() {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 10000);
+      try {
+        const r = await fetch(APP + '/salud?t=' + Date.now(), { cache: 'no-store', signal: ctl.signal });
+        const j = await r.json();
+        return j && j.ok === true;
+      } catch (e) { return false; } finally { clearTimeout(t); }
+    }
+    async function esperar() {
+      while ((Date.now() - inicio) < 150000) {
+        if (await listo()) {
+          clearInterval(tBarra); clearInterval(tMsg); clearInterval(tTip);
+          $('barra').style.width = '100%'; $('estado').textContent = '¡Lista! Entrando…';
+          setTimeout(() => location.replace(DESTINO), 500);
+          return;
+        }
+        await new Promise(r => setTimeout(r, 2500));
+      }
+      $('estado').textContent = 'No pudimos confirmar que la app esté lista. Intenta entrar.';
+      $('btn').style.display = 'inline-block';
+    }
+    esperar();
+  </script>
+</body>
+</html>
