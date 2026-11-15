@@ -6,13 +6,13 @@
   <title>Moto Speed · Tienda de repuestos</title>
   <meta name="description" content="Tienda online de Moto Speed: repuestos para tu moto con precio y disponibilidad al instante.">
   <meta name="robots" content="noindex">
-  <link rel="icon" href="/assets/motospeed-icon-192.png">
-  <link rel="apple-touch-icon" href="/assets/motospeed-apple-touch-icon.png">
+  <link rel="icon" href="/assets/motospeed-icon-192.png?v=la9">
+  <link rel="apple-touch-icon" href="/assets/motospeed-apple-touch-icon.png?v=la9">
   
   <meta name="theme-color" content="#0b0a07">
   <meta name="apple-mobile-web-app-title" content="Moto Speed">
   <meta property="og:title" content="Moto Speed · Repuestos para tu moto">
-  <meta property="og:image" content="https://softgestapps.com/assets/motospeed-icon-512.png">
+  <meta property="og:image" content="https://softgestapps.com/assets/motospeed-og.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
   <style>
@@ -28,12 +28,12 @@
     .escena { position: relative; display: inline-block; }
     .escena::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 150px; height: 18px; transform: translateX(-50%);
       background: radial-gradient(closest-side, rgba(255,196,0,.35), transparent); animation: sombra 1.6s ease-in-out infinite; }
-    .dragona { width: 210px; height: auto; display: block; filter: drop-shadow(0 14px 28px rgba(0,0,0,.65));
+    .dragona { width: 150px; height: auto; display: block; filter: drop-shadow(0 14px 28px rgba(0,0,0,.65));
       transform-origin: 50% 100%; animation: salto 1.6s ease-in-out infinite; }
     @keyframes salto { 0%, 100% { transform: translateY(0) rotate(-2deg) } 50% { transform: translateY(-12px) rotate(2deg) } }
     @keyframes sombra { 0%, 100% { opacity: 1; width: 150px } 50% { opacity: .5; width: 110px } }
     .marca { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; }
-    .logo { width: 58px; height: 58px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+    .logo { width: 330px; max-width: 100%; height: auto; display: block; margin: 0 auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,.6)); }
     h1 { font-family: 'Orbitron', 'Barlow', sans-serif; font-weight: 900; font-style: italic; font-size: 38px; margin: 0;
       color: var(--amarillo); text-shadow: 3px 3px 0 var(--rojo); letter-spacing: .01em; }
     .sub { color: var(--suave); margin: 6px 0 26px; font-size: 16px; }
@@ -49,14 +49,14 @@
       padding: 13px 24px; border-radius: 10px; font-size: 16px; }
     .pie { margin-top: 32px; font-size: 13px; color: var(--suave); }
     .pie a { color: var(--suave); }
-    @media (max-width: 420px) { .dragona { width: 180px; } h1 { font-size: 30px; } .logo { width: 48px; height: 48px; } }
+    @media (max-width: 420px) { .dragona { width: 130px; } h1 { font-size: 30px; } .logo { width: 280px; } }
     @media (prefers-reduced-motion: reduce) { .barra i, .tip, .dragona, .escena::after { transition: none; animation: none; } }
   </style>
 </head>
 <body>
   <main class="caja">
     <div class="escena"><img class="dragona" src="/assets/motospeed-dragona.webp" alt="La dragona de Moto Speed"></div>
-    <div class="marca"><img class="logo" src="/assets/motospeed-icon-192.png" alt=""><h1>MOTO SPEED</h1></div>
+    <div class="marca"><h1><img class="logo" src="/assets/motospeed-logo.webp" alt="Moto Speed LA 9 · Repuestos y accesorios" width="720" height="471"></h1></div>
     <p class="sub">Abriendo la tienda de repuestos…</p>
     <div class="barra" aria-hidden="true"><i id="barra"></i></div>
     <p class="estado" id="estado" role="status">Conectando con el servidor</p>
