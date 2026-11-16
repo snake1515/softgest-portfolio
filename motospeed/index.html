@@ -67,7 +67,9 @@
   <script>
     // Dirección de la app en Render. Si cambia el dominio, solo hay que cambiar esta línea (en las dos páginas).
     const APP = 'https://top-speed-app.onrender.com';
-    const DESTINO = APP + '/login';
+    // ?ir=/pos lleva directo a esa pantalla de la app (solo rutas internas)
+    const ir = new URLSearchParams(location.search).get('ir') || '';
+    const DESTINO = APP + (/^\/(?!\/)[\w\-\/]*$/.test(ir) ? ir : '/login');
     const TIPS = ["En el POS puedes buscar por la moto del cliente: «pastillas ns 200» encuentra el repuesto.", "Al cobrar puedes combinar Nequi y efectivo, y la app calcula el cambio.", "Al cerrar la caja cuentas billetes y monedas; la app dice si sobra o falta.", "Cada compra recalcula el costo promedio: la ganancia de cada venta es real.", "El preventista abre su ruta del día en Google Maps con un solo botón.", "Los pedidos de la tienda y de los preventistas apartan el stock hasta que los despachas.", "En Reportes ves la ganancia neta después de gastos y nómina."];
     const $ = id => document.getElementById(id);
     let i = 0;
