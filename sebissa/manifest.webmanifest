@@ -1,0 +1,4 @@
+{"id":"/sebissa/","name":"SEBISSA Motorepuestos","short_name":"SEBISSA","start_url":"/sebissa/","scope":"/sebissa/","display":"standalone","background_color":"#0f0f0f","theme_color":"#0f0f0f",
+ "icons":[{"src":"/assets/sebissa-icon-192.png?v=1","sizes":"192x192","type":"image/png","purpose":"any"},
+          {"src":"/assets/sebissa-icon-512.png?v=1","sizes":"512x512","type":"image/png","purpose":"any"},
+          {"src":"/assets/sebissa-maskable-512.png?v=1","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
