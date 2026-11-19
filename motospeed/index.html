@@ -57,7 +57,7 @@
   <main class="caja">
     <div class="escena"><img class="dragona" src="/assets/motospeed-dragona.webp" alt="La dragona de Moto Speed"></div>
     <div class="marca"><h1><img class="logo" src="/assets/motospeed-logo.webp" alt="Moto Speed LA 9 · Repuestos y accesorios" width="720" height="471"></h1></div>
-    <p class="sub">Preparando tu app…</p>
+    <p class="sub" id="sub">Preparando tu app…</p>
     <div class="barra" aria-hidden="true"><i id="barra"></i></div>
     <p class="estado" id="estado" role="status">Conectando con el servidor</p>
     <div class="tip" id="tip"></div>
@@ -70,6 +70,7 @@
     // ?ir=/pos lleva directo a esa pantalla de la app (solo rutas internas)
     const ir = new URLSearchParams(location.search).get('ir') || '';
     const DESTINO = APP + (/^\/(?!\/)[\w\-\/]*$/.test(ir) ? ir : '/login');
+    if (ir.startsWith('/socios/')) { document.getElementById('sub').textContent = 'Preparando el reporte para socios…'; document.title = 'Moto Speed · Reporte para socios'; }
     const TIPS = ["En el POS puedes buscar por la moto del cliente: «pastillas ns 200» encuentra el repuesto.", "Al cobrar puedes combinar Nequi y efectivo, y la app calcula el cambio.", "Al cerrar la caja cuentas billetes y monedas; la app dice si sobra o falta.", "Cada compra recalcula el costo promedio: la ganancia de cada venta es real.", "El preventista abre su ruta del día en Google Maps con un solo botón.", "Los pedidos de la tienda y de los preventistas apartan el stock hasta que los despachas.", "En Reportes ves la ganancia neta después de gastos y nómina."];
     const $ = id => document.getElementById(id);
     let i = 0;
